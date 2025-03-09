@@ -2,12 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Header from "./components/header";
-import Card from "./components/card";
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer";
+import Card from "@/app/components/card";
+import CollectionCard from "@/app/components/collectionCard";
 import Link from "next/link";
 
 export default function Home() {
   const [Latestproducts, setLatestProducts] = useState([]);
+
+  const collections = [
+    { id: 1, name: "Австрийские", image_url: "/images/austrian.png" },
+    { id: 2, name: "Лондонские", image_url: "/images/london.png" },
+    { id: 3, name: "Прямые", image_url: "/images/straight.png" },
+    { id: 4, name: "Фактурные", image_url: "/images/textured.png" },
+  ];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,18 +45,23 @@ export default function Home() {
               <br />
               уникальную и уютную атмосферу в вашем доме.
             </p>
-            <button className="main-button font-roboto font-normal text-2xl mt-4">
-              <Link href="/catalog">Каталог</Link>
-            </button>
+            <div className="mt-4">
+              <Link
+                href="/catalog"
+                className="main-button font-roboto font-normal text-2xl"
+              >
+                Каталог
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="container latestProducts">
-        <h2 className="font-playfair font-semibold text-5xl mt-10 text-center">
+        <h2 className="font-playfair font-semibold text-5xl mt-10 text-center title-color">
           Новинки
         </h2>
-        <div className="container grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 w-full px-0 mx-0">
+        <div className="container grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full px-0 mx-0">
           {Latestproducts.map((product) => (
             <div key={product.id} className="flex w-full mt-5">
               <Card
@@ -90,13 +104,53 @@ export default function Home() {
           <div className="w-1/2 flex justify-end mt-10">
             <Image
               src="/images/welcome_photo.png"
-              alt="Логотип"
+              alt="Добро пожаловать в Velvia"
               width={650}
               height={500}
             />
           </div>
         </div>
       </div>
+
+      <div className="container CurtainCollection mt-10">
+        <h2 className="font-playfair font-semibold text-5xl mt-10 text-center title-color">
+          Исследуйте наши коллекции штор
+        </h2>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 w-full px-0 mx-0">
+          {collections.map((collection) => (
+            <div key={collection.id} className="flex w-full mt-5">
+              <CollectionCard
+                id={collection.id}
+                key={collection.id}
+                name={collection.name}
+                image_url={collection.image_url}
+                type={collection.type}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="request mt-10">
+        <div className="container min-h-75 flex flex-col justify-center items-center">
+          <h2 className="font-playfair font-semibold text-5xl text-center title-color">
+            Не знаете, какие шторы подойдут вашему интерьеру?
+          </h2>
+          <p className="font-roboto font-normal text-2xlxl mt-7 text-color text-center">
+            Свяжитесь с нами, и мы поможем подобрать идеальные шторы для вашего
+            дома!
+          </p>
+          <div className="mt-7">
+            <Link
+              href="/contacts"
+              className="main-button font-roboto font-normal text-2xl"
+            >
+              Перейти
+            </Link>
+          </div>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 }

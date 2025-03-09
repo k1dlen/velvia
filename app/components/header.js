@@ -23,7 +23,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="nav sm:hidden md:flex lg:flex flex gap-10 font-roboto font-normal text-2xl text-center w-auto p-4 lg:p-0">
+        <nav className="nav sm:hidden md:flex lg:flex flex gap-10 font-roboto font-normal text-2xl text-center w-auto p-4 lg:p-0 text-color">
           <Link href="/">Главная</Link>
           <Link href="/catalog">Каталог</Link>
           <Link href="/about">О нас</Link>
@@ -62,7 +62,7 @@ export default function Header() {
             isOpen ? "flex" : "hidden"
           }  flex-col items-center justify-center gap-4 font-roboto font-normal text-2xl text-center w-auto p-4 lg:p-0 md:hidden lg:hidden transition-all duration-300 ease-in-out transform`}
         >
-          <nav className="flex flex-col gap-4">
+          <nav className="flex flex-col gap-4 text-color">
             <Link href="/">Главная</Link>
             <Link href="/catalog">Каталог</Link>
             <Link href="/about">О нас</Link>

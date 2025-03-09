@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 /* Global styles */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #F5F5F5;
 }
@@ -46,6 +50,10 @@ body {
   color: #2e2e2e;
 }
 
+.accent-color {
+  color: #8B7355;
+}
+
 /* Buttons */
 .main-button {
   background-color: #8B7355;
@@ -65,7 +73,7 @@ body {
 }
 
 /* HomePage */
-.main, .welcome {
+.main, .welcome, .request {
   background-color: #F0E6DD;
 }
 
@@ -76,12 +84,12 @@ header {
   border-bottom: 1px solid #00000033;
 }
 
-.nav a {
-  text-decoration: none;
-  color: #4A4A4A;
+/* Footer */
+footer {
+  border-top: 1px solid #00000033;
 }
 
-/* Card */
+/* Cards */
 .card {
   border: 1px solid #000000;
   border-radius: 5px;
@@ -93,3 +101,7 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
+.collectionCard:hover .collectionCardName {
+  color: #8B7355;
+  transition: all 0.3s ease-in-out;
+}
