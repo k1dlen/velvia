@@ -15,7 +15,6 @@ export default function Catalog() {
   const [isStatusOpen, setIsStatusOpen] = useState(false);
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const searchParams = useSearchParams();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -400,6 +399,7 @@ export default function Catalog() {
               image_url={product.image_url}
               description={product.description}
               price={product.price}
+              discount={product.discount}
             />
           </div>
         ))}

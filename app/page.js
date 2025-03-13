@@ -71,6 +71,7 @@ export default function Home() {
                 image_url={product.image_url}
                 description={product.description}
                 price={product.price}
+                discount={product.discount}
               />
             </div>
           ))}

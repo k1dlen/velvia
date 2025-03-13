@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Header from "@/app/components/header";
+import Footer from "@/app/components/footer";
 import Image from "next/image";
 
 export default function ProductPage() {
@@ -10,6 +11,61 @@ export default function ProductPage() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const addToCart = async () => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        alert("Пожалуйста, авторизуйтесь, чтобы добавить товар в корзину.");
+        router.push("/login");
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+      let userCartId = localStorage.getItem("cart_id");
+
+      if (!userCartId) {
+        const createCartResponse = await fetch("/api/cart/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id_user: user.id,
+          }),
+        });
+
+        if (!createCartResponse.ok) {
+          throw new Error("Не удалось создать корзину");
+        }
+
+        const { cart_id } = await createCartResponse.json();
+        userCartId = cart_id;
+        localStorage.setItem("cart_id", cart_id);
+      }
+
+      const response = await fetch("/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart_id: userCartId,
+          product_id: product.id,
+          count: 1,
+        }),
+      });
+
+      if (response.ok) {
+        alert("Товар добавлен в корзину");
+      } else {
+        alert("Ошибка при добавлении товара в корзину");
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+      alert("Произошла ошибка при добавлении товара в корзину");
+    }
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -128,15 +184,16 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {
-             (product.status === "На складе") && (
-              <button className="main-button font-roboto font-normal text-2xl mt-4 w-full">
+            {product.status === "На складе" && (
+              <button
+                onClick={addToCart}
+                className="main-button font-roboto font-normal text-2xl mt-4 w-full"
+              >
                 Добавить в корзину
               </button>
             )}
 
-            {
-             (product.status === "Распродано") && (
+            {product.status === "Распродано" && (
               <button className="disabled main-button font-roboto font-normal text-2xl mt-4 w-full">
                 Нет в наличии
               </button>
@@ -144,6 +201,7 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

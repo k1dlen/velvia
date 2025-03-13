@@ -5,7 +5,10 @@ import Link from "next/link";
 
 export default function Card(props) {
   return (
-    <a className="card max-w-sm overflow-hidden p-3 h-full flex flex-col" href={`/catalog/${props.id}`}>
+    <a
+      className="card max-w-sm overflow-hidden p-3 h-full flex flex-col"
+      href={`/catalog/${props.id}`}
+    >
       <Image
         className="w-full h-auto object-cover border-rounded"
         src={props.image_url}
@@ -23,7 +26,22 @@ export default function Card(props) {
       </div>
       <div className="mt-auto">
         <p className="font-roboto font-medium price bottom-0 text-2xl">
-          ₽ {props.price}
+          {props.discount ? (
+            <>
+              <span className="line-through text-gray-600">
+                ₽ {props.price}
+              </span>{" "}
+              <span className="text-red-600">
+                ₽{" "}
+                {(
+                  props.price -
+                  (props.price * props.discount) / 100
+                ).toFixed(2)}
+              </span>
+            </>
+          ) : (
+            <span>₽ {props.price}</span>
+          )}
         </p>
       </div>
     </a>
