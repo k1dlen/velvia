@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { FaInstagram, FaTelegram, FaWhatsapp } from "react-icons/fa";
+import { FaTelegram, FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
   return (
     <footer className="bg-F0E6DD py-10 border-t border-black/20">
-      <div className="container px-6">
-        {/* Логотип и описание компании */}
+      <div className="container">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-8">
           <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
             <Link
@@ -21,7 +20,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center md:items-start gap-4 text-color">
+          <div className="flex flex-col items-center md:items-start gap-4 text-color font-roboto">
             <Link href="/" className="text-lg">
               Главная
             </Link>
@@ -37,11 +36,11 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center md:items-start gap-4">
-            <p className="text-lg font-semibold text-color">Контакты</p>
-            <p className="text-sm font-roboto text-color opacity-80">
+            <p className="text-lg font-semibold text-color">Свяжитесь с нами</p>
+            <p className="text-[16px] font-roboto text-color opacity-80">
               +7 999 123 45 67
             </p>
-            <p className="text-sm font-roboto text-color opacity-80">
+            <p className="text-[16px] font-roboto text-color opacity-80">
               example@email.com
             </p>
 
@@ -50,7 +49,7 @@ export default function Footer() {
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-3xl text-color hover:text-accent-color transition-colors"
+                className="text-3xl text-color icon"
               >
                 <FaTelegram />
               </a>
@@ -58,7 +57,7 @@ export default function Footer() {
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-3xl text-color hover:text-accent-color transition-colors"
+                className="text-3xl text-color icon"
               >
                 <FaWhatsapp />
               </a>

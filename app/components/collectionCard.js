@@ -22,7 +22,7 @@ export default function CollectionCard({ name, image_url, id }) {
             className="flex justify-between items-center w-full text-2xl"
           >
             <span className="transition-colors collectionCardName">{name}</span>
-            <span className="font-semibold accent-color transition-transform group-hover:translate-x-2 relative z-10 pr-2">
+            <span className="font-semibold accent-color transition-all ease-in-out group-hover:translate-x-2 relative z-10 pr-2">
               &#8594;
             </span>
           </Link>

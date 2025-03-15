@@ -2,15 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
 import Image from "next/image";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
   const [address, setAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Карта");
   const router = useRouter();
@@ -20,8 +25,8 @@ export default function CartPage() {
       try {
         const storedUser = localStorage.getItem("user");
         if (!storedUser) {
-          alert("Пожалуйста, авторизуйтесь, чтобы просмотреть корзину.");
-          router.push("/login");
+          toast.error("Пожалуйста, авторизуйтесь, чтобы просмотреть корзину.");
+          router.push("/profile");
           return;
         }
 
@@ -47,6 +52,7 @@ export default function CartPage() {
         console.log("Received cartItems:", data.cartItems);
       } catch (err) {
         setError(err.message);
+        toast.error("Ошибка при загрузке корзины.");
       } finally {
         setLoading(false);
       }
@@ -56,11 +62,6 @@ export default function CartPage() {
   }, [router]);
 
   const removeFromCart = async (product_id) => {
-    const confirmDelete = window.confirm(
-      "Вы уверены, что хотите удалить товар из корзины?"
-    );
-    if (!confirmDelete) return;
-
     try {
       const storedUser = localStorage.getItem("user");
       const user = JSON.parse(storedUser);
@@ -81,17 +82,29 @@ export default function CartPage() {
         setCartItems((prevItems) =>
           prevItems.filter((item) => item.product_id !== product_id)
         );
-        alert("Товар удален из корзины");
+        toast.success("Товар удален из корзины!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
       } else {
-        alert("Ошибка при удалении товара из корзины");
+        toast.error("Ошибка при удалении товара из корзины!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
       }
     } catch (error) {
       console.error("Ошибка:", error);
-      alert("Произошла ошибка при удалении товара из корзины");
+      toast.error("Произошла ошибка при удалении товара из корзины", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
     }
   };
 
-  const updateQuantity = async (product_id, newCount) => {
+  const updateCount = async (product_id, newCount) => {
     try {
       const storedUser = localStorage.getItem("user");
       const user = JSON.parse(storedUser);
@@ -115,12 +128,25 @@ export default function CartPage() {
             item.product_id === product_id ? { ...item, count: newCount } : item
           )
         );
+        toast.success("Количество товара обновлено!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
       } else {
-        alert("Ошибка при обновлении количества товара");
+        toast.error("Ошибка при обновлении количества товара!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
       }
     } catch (error) {
       console.error("Ошибка:", error);
-      alert("Произошла ошибка при обновлении количества товара");
+      toast.error("Произошла ошибка при обновлении количества товара", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
     }
   };
 
@@ -137,7 +163,7 @@ export default function CartPage() {
     try {
       const storedUser = localStorage.getItem("user");
       if (!storedUser) {
-        alert("Пожалуйста, авторизуйтесь");
+        toast.error("Пожалуйста, авторизуйтесь");
         router.push("/login");
         return;
       }
@@ -145,7 +171,7 @@ export default function CartPage() {
       const user = JSON.parse(storedUser);
 
       if (!address) {
-        alert("Введите адрес доставки");
+        toast.error("Введите адрес доставки");
         return;
       }
 
@@ -162,12 +188,40 @@ export default function CartPage() {
       });
 
       if (response.ok) {
-        alert("Заказ оформлен!");
+        toast.success("Заказ оформлен!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
         setCartItems([]);
         setIsOrderModalOpen(false);
+      } else {
+        toast.error("Ошибка при оформлении заказа", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
       }
     } catch (error) {
       console.error("Ошибка оформления:", error);
+      toast.error("Ошибка при оформлении заказа", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+    }
+  };
+
+  const handleDeleteProduct = (product) => {
+    setProductToDelete(product);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (productToDelete) {
+      removeFromCart(productToDelete.product_id);
+      setIsDeleteModalOpen(false);
+      setProductToDelete(null);
     }
   };
 
@@ -195,7 +249,19 @@ export default function CartPage() {
       <div className="container relative">
         <h1 className="text-4xl font-bold title-color my-8">Корзина</h1>
         {cartItems.length === 0 ? (
-          <p className="text-center text-lg title-color">Ваша корзина пуста</p>
+          <div className="flex flex-col items-center justify-center my-10">
+            <p className="text-center text-lg title-color font-roboto font-normal">
+              Ваша корзина пуста
+            </p>
+            <div className="mt-6">
+              <Link
+                href="/catalog"
+                className="main-button font-roboto font-normal text-xl"
+              >
+                Перейти в каталог
+              </Link>
+            </div>
+          </div>
         ) : (
           <div className="space-y-6">
             {cartItems.map((item) => (
@@ -216,7 +282,6 @@ export default function CartPage() {
                       {item.name}
                     </h2>
                     <p className="text-lg text-color">
-                      {" "}
                       {item.discount ? (
                         <>
                           <span className="line-through text-gray-600">
@@ -237,19 +302,21 @@ export default function CartPage() {
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() =>
-                          updateQuantity(item.product_id, item.count - 1)
+                          updateCount(item.product_id, item.count - 1)
                         }
                         disabled={item.count <= 1}
-                        className="px-2 py-1 bg-gray-200 rounded"
+                        className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-all ease-in-out duration-300 font-roboto font-normal min-w-8 flex-shrink-0 flex items-center justify-center"
                       >
                         -
                       </button>
-                      <span>{item.count}</span>
+                      <span className="font-roboto font-normal text-color">
+                        {item.count}
+                      </span>
                       <button
                         onClick={() =>
-                          updateQuantity(item.product_id, item.count + 1)
+                          updateCount(item.product_id, item.count + 1)
                         }
-                        className="px-2 py-1 bg-gray-200 rounded"
+                        className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-all ease-in-out duration-300 font-roboto font-normal min-w-8 flex-shrink-0 flex items-center justify-center"
                       >
                         +
                       </button>
@@ -257,8 +324,8 @@ export default function CartPage() {
                   </div>
                 </div>
                 <button
-                  onClick={() => removeFromCart(item.product_id)}
-                  className="px-4 py-2 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded transition-colors duration-300"
+                  onClick={() => handleDeleteProduct(item)}
+                  className="px-4 py-2 border delete-button font-roboto font-normal text-sm"
                 >
                   Удалить
                 </button>
@@ -266,15 +333,15 @@ export default function CartPage() {
             ))}
 
             <div className="flex justify-end mt-8">
-              <div className="p-6">
-                <h2 className="text-2xl font-semibold title-color">
+              <div className="py-6">
+                <h2 className="text-2xl font-semibold title-color text-end">
                   Итого: ₽ {calculateTotal().toFixed(2)}
                 </h2>
                 <button
                   onClick={() => setIsOrderModalOpen(true)}
-                  className="main-button font-roboto font-normal text-2xl mt-4 w-full"
+                  className="main-button font-roboto font-normal text-xl mt-4 w-full"
                 >
-                  Заказать
+                  Оформить заказ
                 </button>
               </div>
             </div>
@@ -315,16 +382,16 @@ export default function CartPage() {
                   <option value="cash">Наличные</option>
                 </select>
               </div>
-              <div className="flex justify-end space-x-4">
+              <div className="flex justify-end space-x-4 w-full">
                 <button
                   onClick={() => setIsOrderModalOpen(false)}
-                  className="px-4 py-2 border rounded-md hover:bg-gray-100"
+                  className="px-4 py-2 border rounded-md cancel-button font-roboto font-normal"
                 >
                   Отмена
                 </button>
                 <button
                   onClick={handleCreateOrder}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  className="px-4 py-2 main-button font-roboto font-normal"
                 >
                   Подтвердить заказ
                 </button>
@@ -333,6 +400,32 @@ export default function CartPage() {
           </div>
         </div>
       )}
+
+      {isDeleteModalOpen && (
+        <div className="absolute inset-0 flex items-center justify-center p-4 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-2xl font-bold title-color mb-4">
+              Удалить товар из корзины?
+            </h2>
+            <div className="flex justify-end space-x-4 w-full">
+              <button
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="px-4 py-2 border rounded-md cancel-button font-roboto font-normal"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 border rounded-md main-button font-roboto font-normal"
+              >
+                Удалить
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ToastContainer />
     </div>
   );
 }

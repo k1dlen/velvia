@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FiUser, FiShoppingCart } from "react-icons/fi";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,21 +32,11 @@ export default function Header() {
         </nav>
 
         <div className="sm:hidden md:flex lg:flex items-center gap-3">
-          <Link href="/profile">
-            <Image
-              src="/images/User.svg"
-              alt="Профиль"
-              width={40}
-              height={40}
-            />
+          <Link href="/profile" className="text-4xl text-color icon">
+            <FiUser />
           </Link>
-          <Link href="/cart">
-            <Image
-              src="/images/Cart.svg"
-              alt="Корзина"
-              width={40}
-              height={40}
-            />
+          <Link href="/cart" className="text-4xl text-color icon">
+            <FiShoppingCart />
           </Link>
         </div>
 
@@ -69,21 +60,11 @@ export default function Header() {
             <Link href="/contacts">Контакты</Link>
           </nav>
           <div className="flex flex-col gap-4">
-            <Link href="/profile">
-              <Image
-                src="/images/User.svg"
-                alt="Профиль"
-                width={40}
-                height={40}
-              />
+            <Link href="/profile" className="text-4xl text-color icon">
+              <FiUser />
             </Link>
-            <Link href="/cart">
-              <Image
-                src="/images/Cart.svg"
-                alt="Корзина"
-                width={40}
-                height={40}
-              />
+            <Link href="/cart" className="text-4xl text-color icon">
+              <FiShoppingCart />
             </Link>
           </div>
         </div>

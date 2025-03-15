@@ -27,6 +27,10 @@ export default function Profile() {
     const fetchOrders = async () => {
       const storedUser = localStorage.getItem("user");
 
+      if (!storedUser) {
+        return;
+      }
+
       const user = JSON.parse(storedUser);
 
       const response = await fetch("/api/order/get", {

@@ -2,68 +2,48 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
 import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [cartItem, setCartItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cartLoading, setCartLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+  const router = useRouter();
 
-  const addToCart = async () => {
+  const fetchCart = async () => {
     try {
       const storedUser = localStorage.getItem("user");
-      if (!storedUser) {
-        alert("Пожалуйста, авторизуйтесь, чтобы добавить товар в корзину.");
-        router.push("/login");
-        return;
-      }
+      if (!storedUser) return;
 
       const user = JSON.parse(storedUser);
-      let userCartId = localStorage.getItem("cart_id");
-
-      if (!userCartId) {
-        const createCartResponse = await fetch("/api/cart/create", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id_user: user.id,
-          }),
-        });
-
-        if (!createCartResponse.ok) {
-          throw new Error("Не удалось создать корзину");
-        }
-
-        const { cart_id } = await createCartResponse.json();
-        userCartId = cart_id;
-        localStorage.setItem("cart_id", cart_id);
-      }
-
-      const response = await fetch("/api/cart/add", {
+      const response = await fetch("/api/cart/get", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          cart_id: userCartId,
-          product_id: product.id,
-          count: 1,
-        }),
+        body: JSON.stringify({ user_id: user.id }),
       });
 
-      if (response.ok) {
-        alert("Товар добавлен в корзину");
-      } else {
-        alert("Ошибка при добавлении товара в корзину");
-      }
+      if (!response.ok) throw new Error("Ошибка загрузки корзины");
+      const data = await response.json();
+      const item = data.cartItems.find(
+        (item) => item.product_id === parseInt(id)
+      );
+      setCartItem(item || null);
     } catch (error) {
-      console.error("Ошибка:", error);
-      alert("Произошла ошибка при добавлении товара в корзину");
+      console.error(error);
+    } finally {
+      setCartLoading(false);
     }
   };
 
@@ -71,11 +51,10 @@ export default function ProductPage() {
     const fetchProduct = async () => {
       try {
         const res = await fetch(`/api/products/${id}`);
-        if (!res.ok) {
-          throw new Error("Не удалось загрузить данные о товаре");
-        }
+        if (!res.ok) throw new Error("Не удалось загрузить данные о товаре");
         const data = await res.json();
         setProduct(data);
+        await fetchCart();
       } catch (err) {
         setError(err.message);
       } finally {
@@ -85,6 +64,109 @@ export default function ProductPage() {
 
     fetchProduct();
   }, [id]);
+
+  const confirmDelete = async () => {
+    try {
+      if (productToDelete) {
+        const storedUser = localStorage.getItem("user");
+        const user = JSON.parse(storedUser);
+
+        const response = await fetch("/api/cart/remove", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            product_id: productToDelete.id,
+          }),
+        });
+
+        if (response.ok) {
+          setCartItem(null);
+          toast.success("Товар удален из корзины");
+        } else {
+          toast.error("Не удалось удалить товар из корзины");
+        }
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+      toast.error("Ошибка при удалении товара");
+    } finally {
+      setIsDeleteModalOpen(false);
+      setProductToDelete(null);
+    }
+  };
+
+  const updateCount = async (newCount) => {
+    try {
+      if (newCount <= 0) {
+        setProductToDelete(product);
+        setIsDeleteModalOpen(true);
+        return;
+      }
+
+      const storedUser = localStorage.getItem("user");
+      const user = JSON.parse(storedUser);
+
+      const response = await fetch("/api/cart/update", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          product_id: product.id,
+          count: newCount,
+        }),
+      });
+
+      if (response.ok) await fetchCart();
+      toast.success("Количество товара обновлено");
+    } catch (error) {
+      console.error("Ошибка:", error);
+      toast.error("Ошибка при обновлении количества");
+    }
+  };
+
+  const addToCart = async () => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        toast.warning("Пожалуйста, авторизуйтесь");
+        router.push("/profile");
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+      let cartId = localStorage.getItem("cart_id");
+
+      if (!cartId) {
+        const createResponse = await fetch("/api/cart/create", {
+          method: "POST",
+          body: JSON.stringify({ id_user: user.id }),
+        });
+        const { cart_id } = await createResponse.json();
+        cartId = cart_id;
+        localStorage.setItem("cart_id", cart_id);
+      }
+
+      await fetch("/api/cart/add", {
+        method: "POST",
+        body: JSON.stringify({
+          cart_id: cartId,
+          product_id: product.id,
+          count: 1,
+        }),
+      });
+
+      await fetchCart();
+      toast.success("Товар добавлен в корзину");
+    } catch (error) {
+      console.error("Ошибка:", error);
+      toast.error("Ошибка при добавлении товара");
+    }
+  };
 
   if (loading) {
     return (
@@ -184,24 +266,71 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {product.status === "На складе" && (
-              <button
-                onClick={addToCart}
-                className="main-button font-roboto font-normal text-2xl mt-4 w-full"
-              >
-                Добавить в корзину
-              </button>
-            )}
-
-            {product.status === "Распродано" && (
-              <button className="disabled main-button font-roboto font-normal text-2xl mt-4 w-full">
-                Нет в наличии
-              </button>
-            )}
+            {product.status === "На складе" &&
+              (!cartLoading ? (
+                cartItem ? (
+                  <div className="flex items-center gap-4 mt-4">
+                    <button
+                      onClick={() => updateCount(cartItem.count - 1)}
+                      className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 
+              transition-all ease-in-out duration-300  font-roboto font-normal
+              w-12 flex-shrink-0 flex items-center justify-center"
+                    >
+                      -
+                    </button>
+                    <span className="font-roboto font-normal text-color text-xl">
+                      {cartItem.count}
+                    </span>
+                    <button
+                      onClick={() => updateCount(cartItem.count + 1)}
+                      className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 
+              transition-all ease-in-out duration-300 font-roboto font-normal
+              w-12 flex-shrink-0 flex items-center justify-center"
+                    >
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={addToCart}
+                    className="main-button font-roboto font-normal text-2xl mt-4 w-full"
+                  >
+                    Добавить в корзину
+                  </button>
+                )
+              ) : (
+                <p className="text-center mt-4">Проверка корзины...</p>
+              ))}
           </div>
         </div>
       </div>
       <Footer />
+
+      {isDeleteModalOpen && (
+        <div className="absolute inset-0 flex items-center justify-center p-4 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-2xl font-bold title-color mb-4">
+              Удалить товар из корзины?
+            </h2>
+            <div className="flex justify-end space-x-4 w-full">
+              <button
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="px-4 py-2 border rounded-md cancel-button font-roboto font-normal"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 border rounded-md main-button font-roboto font-normal"
+              >
+                Удалить
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ToastContainer />
     </div>
   );
 }
