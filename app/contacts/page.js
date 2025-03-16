@@ -68,12 +68,12 @@ export default function Contacts() {
             </div>
           </div>
 
-          <div className="md:w-1/2 map">
+          <div className="map">
             <Image
-              src="/images/contacts_map.jpg"
+              src="/images/map.png"
               alt="Карта"
-              width={600}
-              height={400}
+              width={650}
+              height={500}
             />
           </div>
         </div>

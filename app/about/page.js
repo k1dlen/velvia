@@ -23,10 +23,10 @@ export default function About() {
           </div>
           <div className="md:w-1/2 flex justify-end">
             <Image
-              src="/images/about_hero.jpg"
+              src="/images/about_hero.png"
               alt="О компании"
-              width={600}
-              height={400}
+              width={650}
+              height={500}
             />
           </div>
         </div>
@@ -76,10 +76,10 @@ export default function About() {
         <div className="container flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2">
             <Image
-              src="/images/production.jpg"
+              src="/images/production.png"
               alt="Производство"
-              width={600}
-              height={400}
+              width={650}
+              height={500}
             />
           </div>
           <div className="md:w-1/2">
