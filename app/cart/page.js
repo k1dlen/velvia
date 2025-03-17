@@ -219,6 +219,7 @@ export default function CartPage() {
         localStorage.removeItem("cart_id");
         setAddress("");
         setPaymentMethod("Карта");
+        fetchCart();
 
         toast.success(result.message);
         setIsOrderModalOpen(false);
