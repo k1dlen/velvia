@@ -9,7 +9,6 @@ export async function POST(req) {
     connection = await db.getConnection();
     await connection.beginTransaction();
 
-    // 1. Получаем корзину
     const [cart] = await connection.query(
       "SELECT id FROM cart WHERE id_user = ?",
       [user_id]
