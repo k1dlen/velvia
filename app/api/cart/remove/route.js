@@ -22,8 +22,26 @@ export async function POST(req) {
       [cart_id, product_id]
     );
 
+    const [remainingItems] = await db.query(
+      "SELECT COUNT(*) AS count FROM cart_items WHERE cart_id = ?",
+      [cart[0].id]
+    );
+
+    let cartDeleted = false;
+
+    console.log("Remaining items count:", remainingItems[0].count);
+    console.log("Remaining items:", remainingItems);
+
+    if (remainingItems[0].count == 0) {
+      await db.query("DELETE FROM cart WHERE id_user = ?", [user_id]);
+      cartDeleted = true;
+    }
+
     return NextResponse.json(
-      { message: "Товар удален из корзины" },
+      {
+        message: "Товар и корзина удалены",
+        cartDeleted: true,
+      },
       { status: 200 }
     );
   } catch (error) {

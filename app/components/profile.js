@@ -19,7 +19,6 @@ export default function Profile() {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
-      router.push(parsedUser.id_role === 2 ? "/admin" : "/profile");
     }
   }, []);
 
@@ -33,14 +32,11 @@ export default function Profile() {
 
       const user = JSON.parse(storedUser);
 
-      const response = await fetch("/api/order/get", {
-        method: "POST",
+      const response = await fetch(`/api/order/get?user_id=${user.id}`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          user_id: user.id,
-        }),
       });
 
       if (response.ok) {
@@ -88,6 +84,7 @@ export default function Profile() {
               <h2 className="font-playfair text-2xl font-semibold title-color my-2">
                 Ваши заказы:
               </h2>
+              {orders.length === 0 && <p>У вас нет заказов</p>}
               {orders.map((order) => (
                 <div key={order.order_id}>
                   <p className="font-roboto">Номер заказа: {order.order_id}</p>
@@ -97,12 +94,25 @@ export default function Profile() {
                 </div>
               ))}
             </div>
+
+            {user.id_role === 2 && (
+              <div className="mt-4">
+                <button
+                  onClick={() => router.push("/admin")}
+                  className="px-4 py-2 main-button"
+                >
+                  Панель администратора
+                </button>
+              </div>
+            )}
+
             <div className="mt-4">
               <Logout setUser={setUser} />
             </div>
           </div>
         </div>
       )}
+
       <Footer />
     </>
   );

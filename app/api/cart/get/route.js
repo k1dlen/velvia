@@ -16,6 +16,8 @@ export async function POST(req) {
       user_id,
     ]);
 
+    console.log("Received cart:", cart);
+
     if (!cart) {
       return NextResponse.json(
         { error: "Корзина не найдена" },
@@ -30,6 +32,8 @@ export async function POST(req) {
         "WHERE ci.cart_id = ?",
       [cart[0].id]
     );
+
+    console.log("Received cartItems:", cartItems);
 
     return NextResponse.json({ cartItems }, { status: 200 });
   } catch (error) {

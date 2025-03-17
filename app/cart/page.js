@@ -20,44 +20,40 @@ export default function CartPage() {
   const [paymentMethod, setPaymentMethod] = useState("Карта");
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const storedUser = localStorage.getItem("user");
-        if (!storedUser) {
-          toast.error("Пожалуйста, авторизуйтесь, чтобы просмотреть корзину.");
-          router.push("/profile");
-          return;
-        }
-
-        const user = JSON.parse(storedUser);
-        const user_id = user.id;
-
-        const response = await fetch("/api/cart/get", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Не удалось загрузить корзину");
-        }
-
-        const data = await response.json();
-        setCartItems(data.cartItems);
-        console.log("Received cartItems:", data.cartItems);
-      } catch (err) {
-        setError(err.message);
-        toast.error("Ошибка при загрузке корзины.");
-      } finally {
-        setLoading(false);
+  const fetchCart = async () => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        toast.error("Пожалуйста, авторизуйтесь, чтобы просмотреть корзину.");
+        router.push("/profile");
+        return;
       }
-    };
 
+      const user = JSON.parse(storedUser);
+      const user_id = user.id;
+
+      const response = await fetch("/api/cart/get", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id,
+        }),
+      });
+
+      const data = await response.json();
+      setCartItems(data.cartItems);
+      console.log("Received cartItems:", data.cartItems);
+    } catch (err) {
+      setError(err.message);
+      toast.error("Ошибка при загрузке корзины.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchCart();
   }, [router]);
 
@@ -78,10 +74,31 @@ export default function CartPage() {
         }),
       });
 
+      const result = await response.json();
+
       if (response.ok) {
-        setCartItems((prevItems) =>
-          prevItems.filter((item) => item.product_id !== product_id)
-        );
+        if (result.cartDeleted) {
+          localStorage.removeItem("cart_id");
+          console.log("Cart_id deleted");
+        }
+
+        const refreshResponse = await fetch("/api/cart/get", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id,
+          }),
+        });
+
+        fetchCart();
+
+        if (refreshResponse.ok) {
+          const refreshResult = await refreshResponse.json();
+          setCartItems(refreshResult.cartItems);
+        }
+
         toast.success("Товар удален из корзины!", {
           position: "top-right",
           autoClose: 3000,
@@ -177,9 +194,7 @@ export default function CartPage() {
 
       const response = await fetch("/api/order/create", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_id: user.id,
           address,
@@ -187,28 +202,32 @@ export default function CartPage() {
         }),
       });
 
+      const result = await response.json();
+
       if (response.ok) {
-        toast.success("Заказ оформлен!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
+        const refreshResponse = await fetch("/api/cart/get", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: user.id }),
         });
-        setCartItems([]);
+
+        if (refreshResponse.ok) {
+          const { cartItems } = await refreshResponse.json();
+          setCartItems(cartItems);
+        }
+
+        localStorage.removeItem("cart_id");
+        setAddress("");
+        setPaymentMethod("Карта");
+
+        toast.success(result.message);
         setIsOrderModalOpen(false);
       } else {
-        toast.error("Ошибка при оформлении заказа", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-        });
+        toast.error(result.error || "Ошибка при оформлении заказа");
       }
     } catch (error) {
       console.error("Ошибка оформления:", error);
-      toast.error("Ошибка при оформлении заказа", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-      });
+      toast.error("Произошла непредвиденная ошибка");
     }
   };
 
@@ -239,6 +258,28 @@ export default function CartPage() {
       <div>
         <Header />
         <h1 className="container text-center text-red-500">{error}</h1>
+      </div>
+    );
+  }
+
+  if (!cartItems) {
+    return (
+      <div>
+        <Header />
+        <div className="flex flex-col items-center justify-center my-10">
+          <p className="text-center text-lg title-color font-roboto font-normal">
+            Ваша корзина пуста
+          </p>
+          <div className="mt-6">
+            <Link
+              href="/catalog"
+              className="main-button font-roboto font-normal text-xl"
+            >
+              Перейти в каталог
+            </Link>
+          </div>
+        </div>
+        <Footer />
       </div>
     );
   }

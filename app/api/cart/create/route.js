@@ -5,6 +5,18 @@ export async function POST(req) {
   try {
     const { id_user } = await req.json();
 
+    const [existingCart] = await db.query(
+      "SELECT id FROM cart WHERE id_user = ?",
+      [id_user]
+    );
+
+    if (existingCart.length > 0) {
+      return NextResponse.json(
+        { error: "Корзина уже создана" },
+        { status: 400 }
+      );
+    }
+
     const [result] = await db.query("INSERT INTO cart (id_user) VALUES (?)", [
       id_user,
     ]);

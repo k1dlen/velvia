@@ -5,7 +5,7 @@ import { FaTelegram, FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-F0E6DD py-10 border-t border-black/20">
+    <footer id="footer" className="bg-F0E6DD py-10 border-t border-black/20">
       <div className="container">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-8">
           <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
@@ -29,9 +29,6 @@ export default function Footer() {
             </Link>
             <Link href="/about" className="text-lg">
               О нас
-            </Link>
-            <Link href="/contacts" className="text-lg">
-              Контакты
             </Link>
           </div>
 

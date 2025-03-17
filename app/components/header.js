@@ -28,7 +28,7 @@ export default function Header() {
           <Link href="/">Главная</Link>
           <Link href="/catalog">Каталог</Link>
           <Link href="/about">О нас</Link>
-          <Link href="/contacts">Контакты</Link>
+          <Link href="#footer">Контакты</Link>
         </nav>
 
         <div className="sm:hidden md:flex lg:flex items-center gap-3">

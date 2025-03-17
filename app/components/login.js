@@ -16,6 +16,22 @@ export default function Login({ setUser }) {
 
     if (res.ok) {
       const { user } = await res.json();
+      console.log("Received user login:", user);
+
+      const cartData = await fetch("/api/cart/get", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: user.id }),
+      }).then((res) => res.json());
+
+      console.log("Received cart login:", cartData);
+
+      if (cartData && cartData.cartItems && cartData.cartItems.length > 0) {
+        localStorage.setItem("cart_id", cartData.cartItems[0].cart_id);
+      }
+
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
     }
@@ -41,9 +57,7 @@ export default function Login({ setUser }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="mt-4 w-full main-button">
-          Войти
-        </button>
+        <button className="mt-4 w-full main-button">Войти</button>
       </form>
     </div>
   );

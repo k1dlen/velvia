@@ -137,20 +137,21 @@ export default function Home() {
           <h2 className="font-playfair font-semibold text-5xl text-center title-color">
             Не знаете, какие шторы подойдут вашему интерьеру?
           </h2>
-          <p className="font-roboto font-normal text-2xlxl mt-7 text-color text-center">
+          <p className="font-roboto font-normal text-2xl mt-7 text-color text-center">
             Свяжитесь с нами, и мы поможем подобрать идеальные шторы для вашего
             дома!
           </p>
           <div className="mt-7">
-            <Link
-              href="/contacts"
+            <a
+              href="#footer"
               className="main-button font-roboto font-normal text-2xl"
             >
-              Перейти
-            </Link>
+              Посмотреть контакты
+            </a>
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );

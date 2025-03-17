@@ -34,7 +34,7 @@ export default function ProductPage() {
         body: JSON.stringify({ user_id: user.id }),
       });
 
-      if (!response.ok) throw new Error("Ошибка загрузки корзины");
+
       const data = await response.json();
       const item = data.cartItems.find(
         (item) => item.product_id === parseInt(id)
