@@ -14,14 +14,23 @@ export async function GET(req) {
       o.id AS order_id,
       DATE_FORMAT(o.created_at, '%d-%m-%Y') AS order_date,
       os.name AS order_status,
-      SUM(oi.count * oi.price) AS total_amount,
       o.payment_method,
       o.address,
       o.id_status,
       u.full_name,
-      u.phone
+      u.phone,
+      SUM(oi.count * oi.price) AS total_amount,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+          'product_id', p.id,
+          'product_name', p.name,
+          'count', oi.count,
+          'price', oi.price
+        )
+      ) AS order_items
     FROM \`order\` o
     JOIN order_items oi ON o.id = oi.order_id
+    JOIN products p ON oi.product_id = p.id
     JOIN order_status os ON o.id_status = os.id
     JOIN \`user\` u ON o.id_user = u.id
   `;

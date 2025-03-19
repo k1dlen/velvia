@@ -21,19 +21,30 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center md:items-start gap-4 text-color font-roboto">
-            <Link href="/" className="text-lg">
+            <Link
+              href="/"
+              className="text-lg hover:text-[#8b7355] transition-all duration-300 ease-in-out"
+            >
               Главная
             </Link>
-            <Link href="/catalog" className="text-lg">
+            <Link
+              href="/catalog"
+              className="text-lg hover:text-[#8b7355] transition-all duration-300 ease-in-out"
+            >
               Каталог
             </Link>
-            <Link href="/about" className="text-lg">
+            <Link
+              href="/about"
+              className="text-lg hover:text-[#8b7355] transition-all duration-300 ease-in-out"
+            >
               О нас
             </Link>
           </div>
 
           <div className="flex flex-col items-center md:items-start gap-4">
-            <p className="text-lg font-semibold text-color">Свяжитесь с нами</p>
+            <p className="text-lg font-semibold text-color">
+              Свяжитесь с нами
+            </p>
             <p className="text-[16px] font-roboto text-color opacity-80">
               +7 999 123 45 67
             </p>

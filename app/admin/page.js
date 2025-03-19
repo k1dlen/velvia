@@ -17,8 +17,13 @@ export default function AdminPage() {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      console.log(parsedUser);
       setUser(parsedUser);
+    } else if (!storedUser) {
+      router.push("/profile");
+      return;
+    } else if (storedUser && user.id_role !== 2) {
+      router.push("/profile");
+      return;
     }
   }, []);
 
@@ -26,10 +31,9 @@ export default function AdminPage() {
     const storedUser = localStorage.getItem("user");
 
     if (!storedUser) {
+      router.push("/profile");
       return;
     }
-
-    const user = JSON.parse(storedUser);
 
     const response = await fetch("/api/order/get", {
       method: "GET",
@@ -91,15 +95,19 @@ export default function AdminPage() {
     return (
       <>
         <Header />
-        <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color my-20 py-20">
-          У вас нет доступа к данной странице, вернитесь на главную
-        </h1>
-        <button
-          className="main-button px-4 py-2"
-          onClick={() => router.push("/")}
-        >
-          Главная
-        </button>
+        <div className="container">
+          <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color mt-20">
+            У вас нет доступа к данной странице, вернитесь на главную
+          </h1>
+          <div className="text-center mb-10">
+            <button
+              className="main-button px-4 py-2"
+              onClick={() => router.push("/")}
+            >
+              Главная
+            </button>
+          </div>
+        </div>
         <Footer />
       </>
     );
@@ -109,15 +117,19 @@ export default function AdminPage() {
     return (
       <>
         <Header />
-        <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color my-20 py-20">
-          Пожалуйста, авторизуйтесь
-        </h1>
-        <button
-          className="main-button px-4 py-2"
-          onClick={() => router.push("/login")}
-        >
-          Войти
-        </button>
+        <div className="container">
+          <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color mt-20">
+            У вас нет доступа к данной странице, вернитесь на главную
+          </h1>
+          <div className="text-center mb-10">
+            <button
+              className="main-button px-4 py-2"
+              onClick={() => router.push("/")}
+            >
+              Главная
+            </button>
+          </div>
+        </div>
         <Footer />
       </>
     );
@@ -140,24 +152,69 @@ export default function AdminPage() {
           {orders.map((order) => (
             <div
               key={order.order_id}
-              className="text-color font-roboto text-2xl mb-4"
+              className="mb-4 border rounded-lg shadow-sm hover:shadow-md transition-all duration-300 ease-in-out"
             >
-              <p>Номер заказа: {order.order_id}</p>
-              <p>Дата заказа: {order.order_date}</p>
-              <p>Имя: {order.full_name}</p>
-              <p>Телефон: {order.phone}</p>
-              <p>Адрес: {order.address}</p>
-              <p>Способ оплаты: {order.payment_method}</p>
-              <p>
-                Статус: {order.order_status}
-                <br />
+              <div className="flex justify-between items-center p-4 cursor-pointer">
+                <h3 className="font-roboto font-medium text-lg title-color">
+                  Заказ №{order.order_id}
+                </h3>
+              </div>
+
+              <div className="p-4 pt-0 border-t animate-slideDown transition-all duration-300 ease-in-out">
+                <div className="grid grid-cols-2 gap-4 py-4">
+                  <div>
+                    <p className="font-roboto text-color">Дата заказа:</p>
+                    <p className="font-roboto font-medium">
+                      {order.order_date}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-roboto text-color">Имя:</p>
+                    <p className="font-roboto font-medium">{order.full_name}</p>
+                  </div>
+                  <div>
+                    <p className="font-roboto text-color">Телефон:</p>
+                    <p className="font-roboto font-medium">{order.phone}</p>
+                  </div>
+                  <div>
+                    <p className="font-roboto text-color">Адрес:</p>
+                    <p className="font-roboto font-medium">{order.address}</p>
+                  </div>
+                  <div>
+                    <p className="font-roboto text-color">Способ оплаты:</p>
+                    <p className="font-roboto font-medium">
+                      {order.payment_method}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-roboto text-color">Статус:</p>
+                    <span
+                      className={`px-2 py-1 rounded-full text-sm ${
+                        order.order_status === "Доставлен"
+                          ? "bg-green-100 text-green-800"
+                          : order.order_status === "Отменен"
+                          ? "bg-red-100 text-red-800"
+                          : order.order_status === "В пути"
+                          ? "bg-orange-100 text-orange-800"
+                          : order.order_status === "Ожидает доставки"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : order.order_status === "В обработке"
+                          ? "bg-indigo-100 text-indigo-800"
+                          : "bg-blue-100 text-blue-800"
+                      }`}
+                    >
+                      {order.order_status}
+                    </span>
+                  </div>
+                </div>
+
                 {order.id_status === 1 && (
-                  <>
+                  <div className="my-2">
                     <button
                       className="mr-2 my-2 main-button text-xl"
                       onClick={() => updateStatus(order.order_id, 2)}
                     >
-                      Принять
+                      Начать обработку
                     </button>
                     <button
                       className="mr-2 my-2 cancel-button text-xl"
@@ -165,10 +222,31 @@ export default function AdminPage() {
                     >
                       Отклонить
                     </button>
-                  </>
+                  </div>
                 )}
-              </p>
-              <hr className="my-4" />
+
+                {(order.id_status === 2 ||
+                  order.id_status === 4 ||
+                  order.id_status === 6) && (
+                  <div className="my-2">
+                    <select
+                      className="p-2 border rounded-lg text-xl"
+                      onChange={(e) =>
+                        updateStatus(order.order_id, Number(e.target.value))
+                      }
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        Выберите статус
+                      </option>
+                      <option value="4">В пути</option>
+                      <option value="5">Доставлен</option>
+                      <option value="3">Отменен</option>
+                      <option value="6">Ожидает доставки</option>
+                    </select>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>

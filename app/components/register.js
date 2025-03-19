@@ -52,6 +52,7 @@ export default function Register({ setUser }) {
           value={formData.login}
           onChange={(e) => setFormData({ ...formData, login: e.target.value })}
           className="w-full p-3 border border-gray-300 rounded-md text-color focus:ring-2 focus:outline-none"
+          required
         />
         <input
           type="password"
@@ -61,6 +62,7 @@ export default function Register({ setUser }) {
             setFormData({ ...formData, password: e.target.value })
           }
           className="w-full p-3 border border-gray-300 rounded-md text-color focus:ring-2 focus:outline-none"
+          required
         />
         <input
           type="text"
@@ -70,6 +72,7 @@ export default function Register({ setUser }) {
             setFormData({ ...formData, full_name: e.target.value })
           }
           className="w-full p-3 border border-gray-300 rounded-md text-color focus:ring-2 focus:outline-none"
+          required
         />
         <input
           type="tel"
@@ -77,6 +80,7 @@ export default function Register({ setUser }) {
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           className="w-full p-3 border border-gray-300 rounded-md text-color focus:ring-2 focus:outline-none"
+          required
         />
         <input
           type="email"
@@ -84,6 +88,7 @@ export default function Register({ setUser }) {
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="w-full p-3 border border-gray-300 rounded-md text-color focus:ring-2 focus:outline-none"
+          required
         />
         <button type="submit" className="mt-4 w-full main-button">
           Зарегистрироваться

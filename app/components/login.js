@@ -49,6 +49,7 @@ export default function Login({ setUser }) {
           placeholder="Логин"
           value={login}
           onChange={(e) => setLogin(e.target.value)}
+          required
         />
         <input
           className="w-full p-3 border border-gray-300 rounded-md text-color focus:ring-2 focus:outline-none"
@@ -56,6 +57,7 @@ export default function Login({ setUser }) {
           placeholder="Пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <button className="mt-4 w-full main-button">Войти</button>
       </form>

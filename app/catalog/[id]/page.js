@@ -24,22 +24,22 @@ export default function ProductPage() {
     try {
       const storedUser = localStorage.getItem("user");
       if (!storedUser) return;
+      else {
+        const user = JSON.parse(storedUser);
+        const response = await fetch("/api/cart/get", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_id: user.id }),
+        });
 
-      const user = JSON.parse(storedUser);
-      const response = await fetch("/api/cart/get", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: user.id }),
-      });
-
-
-      const data = await response.json();
-      const item = data.cartItems.find(
-        (item) => item.product_id === parseInt(id)
-      );
-      setCartItem(item || null);
+        const data = await response.json();
+        const item = data.cartItems.find(
+          (item) => item.product_id === parseInt(id)
+        );
+        setCartItem(item || null);
+      }
     } catch (error) {
       console.error(error);
     } finally {

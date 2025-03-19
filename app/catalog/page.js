@@ -80,7 +80,7 @@ export default function Catalog() {
               >
                 <span>Тип</span>
                 <span
-                  className={`ml-2 transform transition-all duration-200 ${
+                  className={`ml-2 transform transition-all duration-300 ease-in-out ${
                     isTypeOpen ? "rotate-180" : "rotate-0"
                   }`}
                 >
@@ -128,7 +128,7 @@ export default function Catalog() {
               >
                 <span>Статус</span>
                 <span
-                  className={`ml-2 transform transition-all duration-200 ${
+                  className={`ml-2 transform transition-all duration-300 ease-in-out ${
                     isStatusOpen ? "rotate-180" : "rotate-0"
                   }`}
                 >
@@ -176,7 +176,7 @@ export default function Catalog() {
               >
                 <span>Цена</span>
                 <span
-                  className={`ml-2 transform transition-all duration-200 ${
+                  className={`ml-2 transform transition-all duration-300 ease-in-out ${
                     isPriceOpen ? "rotate-180" : "rotate-0"
                   }`}
                 >
@@ -244,7 +244,7 @@ export default function Catalog() {
             >
               <span>Тип</span>
               <span
-                className={`ml-2 transform transition-all duration-200 ${
+                className={`ml-2 transform transition-all duration-300 ease-in-out ${
                   isTypeOpen ? "rotate-180" : "rotate-0"
                 }`}
               >
@@ -292,7 +292,7 @@ export default function Catalog() {
             >
               <span>Статус</span>
               <span
-                className={`ml-2 transform transition-all duration-200 ${
+                className={`ml-2 transform transition-all duration-300 ease-in-out ${
                   isStatusOpen ? "rotate-180" : "rotate-0"
                 }`}
               >
@@ -340,7 +340,7 @@ export default function Catalog() {
             >
               <span>Цена</span>
               <span
-                className={`ml-2 transform transition-all duration-200 ${
+                className={`ml-2 transform transition-all duration-300 ease-in-out ${
                   isPriceOpen ? "rotate-180" : "rotate-0"
                 }`}
               >
