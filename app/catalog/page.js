@@ -197,7 +197,7 @@ export default function Catalog() {
                     <input
                       type="range"
                       min="0"
-                      max="10000"
+                      max="11000"
                       step="100"
                       value={filterPrice[0]}
                       onChange={(e) =>
@@ -207,7 +207,7 @@ export default function Catalog() {
                     <input
                       type="range"
                       min="0"
-                      max="10000"
+                      max="11000"
                       step="100"
                       value={filterPrice[1]}
                       onChange={(e) =>
