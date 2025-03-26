@@ -32,14 +32,14 @@ export default function Home() {
     <div>
       <Header />
       <div className="main">
-        <div className="container flex flex-col justify-center items-start min-h-125">
+        <div className="container flex flex-col items-start justify-center min-h-125">
           <div className="main_body">
-            <h1 className="font-playfair font-semibold text-5xl title-color">
+            <h1 className="text-5xl font-semibold font-playfair title-color">
               Открой для себя мир штор:
               <br />
               стиль и уют в каждом доме!
             </h1>
-            <p className="font-roboto font-normal text-2xl text-color mt-4">
+            <p className="mt-4 text-2xl font-normal font-roboto text-color">
               8 видов систем, более 1000 видов тканей, и множество <br />
               дополнительных возможностей позволяют создать
               <br />
@@ -48,7 +48,7 @@ export default function Home() {
             <div className="mt-4">
               <Link
                 href="/catalog"
-                className="main-button font-roboto font-normal text-2xl"
+                className="text-2xl font-normal main-button font-roboto"
               >
                 Каталог
               </Link>
@@ -58,7 +58,7 @@ export default function Home() {
       </div>
 
       <div className="container latestProducts">
-        <h2 className="font-playfair font-semibold text-5xl mt-10 text-center title-color">
+        <h2 className="mt-10 text-5xl font-semibold text-center font-playfair title-color">
           Новинки
         </h2>
         <div className="container grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full px-0 mx-0">
@@ -78,21 +78,21 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="welcome mt-10">
-        <div className="container flex justify-between items-center min-h-150">
-          <div className="flex flex-col justify-center items-start w-1/2">
-            <h2 className="font-playfair font-semibold text-5xl mt-10 title-color">
+      <div className="mt-10 welcome">
+        <div className="container flex items-center justify-between min-h-150">
+          <div className="flex flex-col items-start justify-center w-1/2">
+            <h2 className="mt-10 text-5xl font-semibold font-playfair title-color">
               Добро пожаловать в Velvia
             </h2>
-            <p className="font-playfair font-normal text-4xl mt-4 title-color">
+            <p className="mt-4 text-4xl font-normal font-playfair title-color">
               Место, где рождается уют и стиль.
             </p>
-            <p className="font-roboto font-normal text-2xl mt-4 text-color">
+            <p className="mt-4 text-2xl font-normal font-roboto text-color">
               Наша миссия — предоставить вам доступ к самым
               <br />
               изысканным и уникальным шторам.
             </p>
-            <p className="font-roboto font-normal text-2xl mt-4 text-color">
+            <p className="mt-4 text-2xl font-normal font-roboto text-color">
               Мы хотим, чтобы каждый клиент — будь то ценитель
               <br />
               уюта, дизайнер интерьеров или просто любитель
@@ -102,7 +102,7 @@ export default function Home() {
               создания идеального пространства.
             </p>
           </div>
-          <div className="w-1/2 flex justify-end mt-10">
+          <div className="flex justify-end w-1/2 mt-10">
             <Image
               src="/images/welcome_photo.png"
               alt="Добро пожаловать в Velvia"
@@ -113,8 +113,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="container CurtainCollection mt-10">
-        <h2 className="font-playfair font-semibold text-5xl mt-10 text-center title-color">
+      <div className="container mt-10 CurtainCollection">
+        <h2 className="mt-10 text-5xl font-semibold text-center font-playfair title-color">
           Исследуйте наши коллекции штор
         </h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 w-full px-0 mx-0">
@@ -132,19 +132,19 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="request mt-10">
-        <div className="container min-h-75 flex flex-col justify-center items-center">
-          <h2 className="font-playfair font-semibold text-5xl text-center title-color">
+      <div className="mt-10 request">
+        <div className="container flex flex-col items-center justify-center min-h-75">
+          <h2 className="text-5xl font-semibold text-center font-playfair title-color">
             Не знаете, какие шторы подойдут вашему интерьеру?
           </h2>
-          <p className="font-roboto font-normal text-2xl mt-7 text-color text-center">
+          <p className="text-2xl font-normal text-center font-roboto mt-7 text-color">
             Свяжитесь с нами, и мы поможем подобрать идеальные шторы для вашего
             дома!
           </p>
           <div className="mt-7">
             <a
               href="#footer"
-              className="main-button font-roboto font-normal text-2xl"
+              className="text-2xl font-normal main-button font-roboto"
             >
               Посмотреть контакты
             </a>

@@ -61,7 +61,7 @@ export default function Profile() {
       <Header />
       {!user ? (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 ">
-          <div className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
             {showRegister ? (
               <Register setUser={setUser} />
             ) : (
@@ -69,7 +69,7 @@ export default function Profile() {
             )}
             <button
               onClick={() => setShowRegister(!showRegister)}
-              className="w-full text-center font-roboto text-lg hover:underline"
+              className="w-full text-lg text-center font-roboto hover:underline"
             >
               {showRegister
                 ? "Уже есть аккаунт? Войти"
@@ -78,37 +78,37 @@ export default function Profile() {
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 my-10">
-          <div className="container bg-white shadow-lg rounded-lg p-8 w-full text-color">
-            <h1 className="font-playfair text-3xl font-semibold text-center mb-4 title-color ">
+        <div className="flex items-center justify-center min-h-screen my-10 bg-gray-100">
+          <div className="container w-full p-8 bg-white rounded-lg shadow-lg text-color">
+            <h1 className="mb-4 text-3xl font-semibold text-center font-playfair title-color ">
               Добро пожаловать, {user.full_name}
             </h1>
-            <h2 className="font-playfair text-2xl font-semibold title-color my-2">
+            <h2 className="my-2 text-2xl font-semibold font-playfair title-color">
               Ваши данные:
             </h2>
             <p className="font-roboto">Имя: {user.full_name}</p>
             <p className="font-roboto">Телефон: {user.phone}</p>
             <div>
-              <h2 className="font-playfair text-2xl font-semibold title-color my-2">
+              <h2 className="my-2 text-2xl font-semibold font-playfair title-color">
                 Ваши заказы:
               </h2>
               {orders.length === 0 && <p>У вас нет заказов</p>}
               {orders.map((order, i) => (
                 <div
                   key={order.order_id}
-                  className="mb-4 border rounded-lg shadow-sm hover:shadow-md transition-all duration-300 ease-in-out"
+                  className="mb-4 transition-all duration-300 ease-in-out border rounded-lg shadow-sm hover:shadow-md"
                 >
                   <div
-                    className="flex justify-between items-center p-4 cursor-pointer"
+                    className="flex items-center justify-between p-4 cursor-pointer"
                     onClick={() => toggleOrder(order.order_id)}
                   >
                     <div>
-                      <h3 className="font-roboto font-medium text-lg title-color">
+                      <h3 className="text-lg font-medium font-roboto title-color">
                         Заказ №{i + 1}
                       </h3>
                     </div>
                     <button
-                      className="p-2 rounded-full transition-all duration-300 ease-in-out"
+                      className="p-2 transition-all duration-300 ease-in-out rounded-full"
                       aria-expanded={openOrders[order.order_id] || false}
                     >
                       <svg
@@ -130,17 +130,17 @@ export default function Profile() {
                   </div>
 
                   {openOrders[order.order_id] && (
-                    <div className="p-4 pt-0 border-t animate-slideDown transition-all duration-300 ease-in-out">
+                    <div className="p-4 pt-0 transition-all duration-300 ease-in-out border-t animate-slideDown">
                       <div className="grid grid-cols-2 gap-4 py-4">
                         <div>
                           <p className="font-roboto text-color">Дата заказа:</p>
-                          <p className="font-roboto font-medium">
+                          <p className="font-medium font-roboto">
                             {order.order_date}
                           </p>
                         </div>
                         <div>
                           <p className="font-roboto text-color">Сумма:</p>
-                          <p className="font-roboto font-medium text-green-600">
+                          <p className="font-medium text-green-600 font-roboto">
                             {order.total_amount} ₽
                           </p>
                         </div>
@@ -165,17 +165,17 @@ export default function Profile() {
                           </span>
                         </div>
                       </div>
-                      <h3 className="font-playfair text-xl font-semibold mt-4">
+                      <h3 className="mt-4 text-xl font-semibold font-playfair">
                         Товары в заказе:
                       </h3>
                       <ul className="mt-2 space-y-2">
                         {order.order_items.map((item) => (
                           <li
                             key={item.product_id}
-                            className="flex justify-between border-b py-2"
+                            className="flex justify-between py-2 border-b"
                           >
                             <div>
-                              <p className="font-roboto font-medium">
+                              <p className="font-medium font-roboto">
                                 {item.product_name}
                               </p>
                               <p className="text-sm text-gray-600">
@@ -183,7 +183,7 @@ export default function Profile() {
                               </p>
                             </div>
                             <div>
-                              <p className="text-green-600 font-medium">
+                              <p className="font-medium text-green-600">
                                 {item.price} ₽
                               </p>
                             </div>

@@ -72,10 +72,10 @@ export default function Catalog() {
       <div>
         <Header />
         <div className="container">
-          <div className="flex space-x-4 mt-4">
+          <div className="flex mt-4 space-x-4">
             <div className="relative">
               <button
-                className="cursor-pointer px-4 py-2 border rounded-md w-max text-color font-roboto font-normal flex justify-between items-center"
+                className="flex items-center justify-between px-4 py-2 font-normal border rounded-md cursor-pointer w-max text-color font-roboto"
                 onClick={() => setIsTypeOpen(!isTypeOpen)}
               >
                 <span>Тип</span>
@@ -123,7 +123,7 @@ export default function Catalog() {
 
             <div className="relative">
               <button
-                className="cursor-pointer px-4 py-2 border rounded-md w-max text-color font-roboto font-normal flex justify-between items-center"
+                className="flex items-center justify-between px-4 py-2 font-normal border rounded-md cursor-pointer w-max text-color font-roboto"
                 onClick={() => setIsStatusOpen(!isStatusOpen)}
               >
                 <span>Статус</span>
@@ -171,7 +171,7 @@ export default function Catalog() {
 
             <div className="relative">
               <button
-                className="cursor-pointer px-4 py-2 border rounded-md w-max text-color font-roboto font-normal flex justify-between items-center"
+                className="flex items-center justify-between px-4 py-2 font-normal border rounded-md cursor-pointer w-max text-color font-roboto"
                 onClick={() => setIsPriceOpen(!isPriceOpen)}
               >
                 <span>Цена</span>
@@ -236,10 +236,10 @@ export default function Catalog() {
     <div>
       <Header />
       <div className="container">
-        <div className="flex space-x-4 mt-4">
+        <div className="flex mt-4 space-x-4">
           <div className="relative">
             <button
-              className="cursor-pointer px-4 py-2 border rounded-md w-max text-color font-roboto font-normal flex justify-between items-center"
+              className="flex items-center justify-between px-4 py-2 font-normal border rounded-md cursor-pointer w-max text-color font-roboto"
               onClick={() => setIsTypeOpen(!isTypeOpen)}
             >
               <span>Тип</span>
@@ -287,7 +287,7 @@ export default function Catalog() {
 
           <div className="relative">
             <button
-              className="cursor-pointer px-4 py-2 border rounded-md w-max text-color font-roboto font-normal flex justify-between items-center"
+              className="flex items-center justify-between px-4 py-2 font-normal border rounded-md cursor-pointer w-max text-color font-roboto"
               onClick={() => setIsStatusOpen(!isStatusOpen)}
             >
               <span>Статус</span>
@@ -335,7 +335,7 @@ export default function Catalog() {
 
           <div className="relative">
             <button
-              className="cursor-pointer px-4 py-2 border rounded-md w-max text-color font-roboto font-normal flex justify-between items-center"
+              className="flex items-center justify-between px-4 py-2 font-normal border rounded-md cursor-pointer w-max text-color font-roboto"
               onClick={() => setIsPriceOpen(!isPriceOpen)}
             >
               <span>Цена</span>

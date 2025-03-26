@@ -28,7 +28,7 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,6 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (1,1),(2,2);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +57,7 @@ CREATE TABLE `cart_items` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +66,6 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` VALUES (2,1,3,2),(3,1,8,1),(4,1,20,2),(5,1,1,1),(6,1,2,1);
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +88,7 @@ CREATE TABLE `order` (
   KEY `id_status` (`id_status`),
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `order_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +97,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (10,2,'вапппапрапрпар','Карта',1,'2025-03-15 18:12:47'),(11,2,'митмиттмитми','Карта',1,'2025-03-15 18:29:43');
+INSERT INTO `order` VALUES (10,2,'вапппапрапрпар','Карта',2,'2025-03-15 18:12:47'),(11,2,'митмиттмитми','Карта',3,'2025-03-15 18:29:43'),(12,1,'bxgfddghmgdhmfghmfghmfghmj','Карта',5,'2025-03-17 22:45:24'),(13,1,'g nnvbnvbn','cash',2,'2025-03-17 22:46:04'),(14,2,'вапвватрваорваротв','Карта',2,'2025-03-17 22:49:43'),(15,1,'x;lbk;lcxkvbjxcv;lbkxcvb','Карта',3,'2025-03-17 23:17:38'),(16,1,'юьюьюьюьюь','Карта',3,'2025-03-17 23:42:04'),(17,1,'эвжапдлрвапжэдрлвап','Карта',2,'2025-03-17 23:46:27'),(18,2,'fthfhfghgf','Карта',3,'2025-03-18 01:03:34'),(19,2,'jhhgjghjgj','Карта',5,'2025-03-18 01:05:33');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +119,7 @@ CREATE TABLE `order_items` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +128,7 @@ CREATE TABLE `order_items` (
 
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
-INSERT INTO `order_items` VALUES (15,10,2,5,5999.99),(16,11,2,5,5999.99),(17,11,11,5,6499.99);
+INSERT INTO `order_items` VALUES (15,10,2,5,5999.99),(16,11,2,5,5999.99),(17,11,11,5,6499.99),(18,12,2,6,5999.99),(19,13,2,4,5999.99),(20,13,8,4,6799.99),(21,14,2,3,5999.99),(22,14,20,4,9999.99),(23,15,2,5,5999.99),(24,15,6,4,10499.99),(25,16,2,3,5999.99),(26,17,2,5,5999.99),(27,17,19,5,4099.99),(28,18,2,6,5999.99),(29,19,2,3,5999.99);
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,10 +141,9 @@ DROP TABLE IF EXISTS `order_status`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_status` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +152,7 @@ CREATE TABLE `order_status` (
 
 LOCK TABLES `order_status` WRITE;
 /*!40000 ALTER TABLE `order_status` DISABLE KEYS */;
-INSERT INTO `order_status` VALUES (1,'new','Новое'),(2,'confirmed','Подтверждено'),(3,'canceled','Отменено');
+INSERT INTO `order_status` VALUES (1,'Новый'),(2,'В обработке'),(3,'Отменен'),(4,'В пути'),(5,'Доставлен'),(6,'Ожидает доставки');
 /*!40000 ALTER TABLE `order_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,7 +232,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `id_role` (`id_role`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,7 +241,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'test1','$2b$10$/BA30P1k9bz3JoqlkeLEdOx34eYJl4gbN9fPRJLOSigqw5irorPI.','test','+987008','test@tesdt.com'),(2,1,'test2','$2b$10$D.ulNJfrScNjag4SvtVqGeMkHr4IjK5/8xWNBDadlRCLTabDaKehe','sdfdsfsdf','+7068678','swdfs@sdadsf.com');
+INSERT INTO `user` VALUES (1,1,'test1','$2b$10$/BA30P1k9bz3JoqlkeLEdOx34eYJl4gbN9fPRJLOSigqw5irorPI.','test','+987008','test@tesdt.com'),(2,1,'test2','$2b$10$D.ulNJfrScNjag4SvtVqGeMkHr4IjK5/8xWNBDadlRCLTabDaKehe','sdfdsfsdf','+7068678','swdfs@sdadsf.com'),(3,2,'admin','$2b$10$9v976YWF4smfC3p1Ny.Nmed4fqUw3q0acVrEpSYqNmY32o8PymNa2','admin','admin','admin@admin.admin');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -257,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-15 20:01:46
+-- Dump completed on 2025-03-19 19:28:25

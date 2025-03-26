@@ -39,7 +39,7 @@ export default function Login({ setUser }) {
 
   return (
     <div className="container flex flex-col items-center justify-center p-5">
-      <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color">
+      <h1 className="mb-6 text-3xl font-semibold text-center font-playfair title-color">
         Авторизация
       </h1>
       <form className="space-y-4" onSubmit={handleLogin}>
@@ -59,7 +59,7 @@ export default function Login({ setUser }) {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className="mt-4 w-full main-button">Войти</button>
+        <button className="w-full mt-4 main-button">Войти</button>
       </form>
     </div>
   );

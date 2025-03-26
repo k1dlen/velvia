@@ -199,10 +199,10 @@ export default function ProductPage() {
     <div>
       <Header />
       <div className="container">
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="relative w-full h-96 md:h-auto  overflow-hidden">
+        <div className="grid grid-cols-1 gap-8 mt-4 md:grid-cols-2">
+          <div className="relative w-full overflow-hidden h-96 md:h-auto">
             <Image
-              className="w-full h-auto object-cover border-rounded hover:scale-105 transition-transform duration-300 ease-in-out"
+              className="object-cover w-full h-auto transition-transform duration-300 ease-in-out border-rounded hover:scale-105"
               src={product.high_res_image_url}
               alt={product.name}
               width={500}
@@ -210,12 +210,12 @@ export default function ProductPage() {
             />
           </div>
 
-          <div className="space-y-6 font-roboto flex flex-col min-h-full h-screen">
+          <div className="flex flex-col h-screen min-h-full space-y-6 font-roboto">
             <h1 className="text-4xl font-bold title-color">{product.name}</h1>
             <p className="text-2xl font-semibold title-color">
               {product.discount ? (
                 <>
-                  <span className="line-through text-gray-600">
+                  <span className="text-gray-600 line-through">
                     ₽ {product.price}
                   </span>{" "}
                   <span className="text-red-600">
@@ -242,14 +242,14 @@ export default function ProductPage() {
                 {product.status}
               </span>
               {product.discount && (
-                <span className="px-3 py-1 text-sm font-medium bg-yellow-100 text-yellow-800 rounded-full">
+                <span className="px-3 py-1 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full">
                   Скидка {product.discount}%
                 </span>
               )}
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold mb-2 title-color">
+              <h2 className="mb-2 text-xl font-semibold title-color">
                 Описание
               </h2>
               <p className="text-lg text-color">{product.description}</p>
@@ -272,20 +272,16 @@ export default function ProductPage() {
                   <div className="flex items-center gap-4 mt-4">
                     <button
                       onClick={() => updateCount(cartItem.count - 1)}
-                      className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 
-              transition-all ease-in-out duration-300  font-roboto font-normal
-              w-12 flex-shrink-0 flex items-center justify-center"
+                      className="flex items-center justify-center flex-shrink-0 w-12 px-4 py-2 font-normal transition-all duration-300 ease-in-out bg-gray-200 rounded-lg hover:bg-gray-300 font-roboto"
                     >
                       -
                     </button>
-                    <span className="font-roboto font-normal text-color text-xl">
+                    <span className="text-xl font-normal font-roboto text-color">
                       {cartItem.count}
                     </span>
                     <button
                       onClick={() => updateCount(cartItem.count + 1)}
-                      className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 
-              transition-all ease-in-out duration-300 font-roboto font-normal
-              w-12 flex-shrink-0 flex items-center justify-center"
+                      className="flex items-center justify-center flex-shrink-0 w-12 px-4 py-2 font-normal transition-all duration-300 ease-in-out bg-gray-200 rounded-lg hover:bg-gray-300 font-roboto"
                     >
                       +
                     </button>
@@ -293,13 +289,13 @@ export default function ProductPage() {
                 ) : (
                   <button
                     onClick={addToCart}
-                    className="main-button font-roboto font-normal text-2xl mt-4 w-full"
+                    className="w-full mt-4 text-2xl font-normal main-button font-roboto"
                   >
                     Добавить в корзину
                   </button>
                 )
               ) : (
-                <p className="text-center mt-4">Проверка корзины...</p>
+                <p className="mt-4 text-center">Проверка корзины...</p>
               ))}
           </div>
         </div>
@@ -307,21 +303,21 @@ export default function ProductPage() {
       <Footer />
 
       {isDeleteModalOpen && (
-        <div className="absolute inset-0 flex items-center justify-center p-4 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-2xl font-bold title-color mb-4">
+        <div className="absolute inset-0 z-50 flex items-center justify-center p-4">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <h2 className="mb-4 text-2xl font-bold title-color">
               Удалить товар из корзины?
             </h2>
-            <div className="flex justify-end space-x-4 w-full">
+            <div className="flex justify-end w-full space-x-4">
               <button
                 onClick={() => setIsDeleteModalOpen(false)}
-                className="px-4 py-2 border rounded-md cancel-button font-roboto font-normal"
+                className="px-4 py-2 font-normal border rounded-md cancel-button font-roboto"
               >
                 Отмена
               </button>
               <button
                 onClick={confirmDelete}
-                className="px-4 py-2 border rounded-md main-button font-roboto font-normal"
+                className="px-4 py-2 font-normal border rounded-md main-button font-roboto"
               >
                 Удалить
               </button>

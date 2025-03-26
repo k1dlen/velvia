@@ -1,4 +1,4 @@
-import {Playfair_Display, Roboto } from "next/font/google";
+import { Playfair_Display, Roboto } from "next/font/google";
 import "@/app/globals.css";
 
 const playfair = Playfair_Display({
@@ -14,7 +14,7 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "Curtains-shop",
+  title: "Velvia",
   description: "просто проект",
 };
 

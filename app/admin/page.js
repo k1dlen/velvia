@@ -96,12 +96,12 @@ export default function AdminPage() {
       <>
         <Header />
         <div className="container">
-          <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color mt-20">
+          <h1 className="mt-20 mb-6 text-3xl font-semibold text-center font-playfair title-color">
             У вас нет доступа к данной странице, вернитесь на главную
           </h1>
-          <div className="text-center mb-10">
+          <div className="mb-10 text-center">
             <button
-              className="main-button px-4 py-2"
+              className="px-4 py-2 main-button"
               onClick={() => router.push("/")}
             >
               Главная
@@ -118,12 +118,12 @@ export default function AdminPage() {
       <>
         <Header />
         <div className="container">
-          <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color mt-20">
+          <h1 className="mt-20 mb-6 text-3xl font-semibold text-center font-playfair title-color">
             У вас нет доступа к данной странице, вернитесь на главную
           </h1>
-          <div className="text-center mb-10">
+          <div className="mb-10 text-center">
             <button
-              className="main-button px-4 py-2"
+              className="px-4 py-2 main-button"
               onClick={() => router.push("/")}
             >
               Главная
@@ -141,48 +141,48 @@ export default function AdminPage() {
         <Header />
 
         <div className="container">
-          <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color my-4">
+          <h1 className="my-4 mb-6 text-3xl font-semibold text-center font-playfair title-color">
             Панель администратора
           </h1>
 
-          <h2 className="font-playfair text-2xl font-semibold mb-6 text-center title-color my-4">
+          <h2 className="my-4 mb-6 text-2xl font-semibold text-center font-playfair title-color">
             Заказы
           </h2>
 
           {orders.map((order) => (
             <div
               key={order.order_id}
-              className="mb-4 border rounded-lg shadow-sm hover:shadow-md transition-all duration-300 ease-in-out"
+              className="mb-4 transition-all duration-300 ease-in-out border rounded-lg shadow-sm hover:shadow-md"
             >
-              <div className="flex justify-between items-center p-4 cursor-pointer">
-                <h3 className="font-roboto font-medium text-lg title-color">
+              <div className="flex items-center justify-between p-4 cursor-pointer">
+                <h3 className="text-lg font-medium font-roboto title-color">
                   Заказ №{order.order_id}
                 </h3>
               </div>
 
-              <div className="p-4 pt-0 border-t animate-slideDown transition-all duration-300 ease-in-out">
+              <div className="p-4 pt-0 transition-all duration-300 ease-in-out border-t animate-slideDown">
                 <div className="grid grid-cols-2 gap-4 py-4">
                   <div>
                     <p className="font-roboto text-color">Дата заказа:</p>
-                    <p className="font-roboto font-medium">
+                    <p className="font-medium font-roboto">
                       {order.order_date}
                     </p>
                   </div>
                   <div>
                     <p className="font-roboto text-color">Имя:</p>
-                    <p className="font-roboto font-medium">{order.full_name}</p>
+                    <p className="font-medium font-roboto">{order.full_name}</p>
                   </div>
                   <div>
                     <p className="font-roboto text-color">Телефон:</p>
-                    <p className="font-roboto font-medium">{order.phone}</p>
+                    <p className="font-medium font-roboto">{order.phone}</p>
                   </div>
                   <div>
                     <p className="font-roboto text-color">Адрес:</p>
-                    <p className="font-roboto font-medium">{order.address}</p>
+                    <p className="font-medium font-roboto">{order.address}</p>
                   </div>
                   <div>
                     <p className="font-roboto text-color">Способ оплаты:</p>
-                    <p className="font-roboto font-medium">
+                    <p className="font-medium font-roboto">
                       {order.payment_method}
                     </p>
                   </div>
@@ -211,13 +211,13 @@ export default function AdminPage() {
                 {order.id_status === 1 && (
                   <div className="my-2">
                     <button
-                      className="mr-2 my-2 main-button text-xl"
+                      className="my-2 mr-2 text-xl main-button"
                       onClick={() => updateStatus(order.order_id, 2)}
                     >
                       Начать обработку
                     </button>
                     <button
-                      className="mr-2 my-2 cancel-button text-xl"
+                      className="my-2 mr-2 text-xl cancel-button"
                       onClick={() => updateStatus(order.order_id, 3)}
                     >
                       Отклонить
@@ -230,7 +230,7 @@ export default function AdminPage() {
                   order.id_status === 6) && (
                   <div className="my-2">
                     <select
-                      className="p-2 border rounded-lg text-xl"
+                      className="p-2 text-xl border rounded-lg"
                       onChange={(e) =>
                         updateStatus(order.order_id, Number(e.target.value))
                       }

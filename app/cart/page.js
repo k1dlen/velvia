@@ -268,13 +268,13 @@ export default function CartPage() {
       <div>
         <Header />
         <div className="flex flex-col items-center justify-center my-10">
-          <p className="text-center text-lg title-color font-roboto font-normal">
+          <p className="text-lg font-normal text-center title-color font-roboto">
             Ваша корзина пуста
           </p>
           <div className="mt-6">
             <Link
               href="/catalog"
-              className="main-button font-roboto font-normal text-xl"
+              className="text-xl font-normal main-button font-roboto"
             >
               Перейти в каталог
             </Link>
@@ -289,16 +289,16 @@ export default function CartPage() {
     <div>
       <Header />
       <div className="container relative">
-        <h1 className="text-4xl font-bold title-color my-8">Корзина</h1>
+        <h1 className="my-8 text-4xl font-bold title-color">Корзина</h1>
         {cartItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center my-10">
-            <p className="text-center text-lg title-color font-roboto font-normal">
+            <p className="text-lg font-normal text-center title-color font-roboto">
               Ваша корзина пуста
             </p>
             <div className="mt-6">
               <Link
                 href="/catalog"
-                className="main-button font-roboto font-normal text-xl"
+                className="text-xl font-normal main-button font-roboto"
               >
                 Перейти в каталог
               </Link>
@@ -309,7 +309,7 @@ export default function CartPage() {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col md:flex-row items-center justify-between pb-4"
+                className="flex flex-col items-center justify-between pb-4 md:flex-row"
               >
                 <div className="flex items-center space-x-4 text-color">
                   <Image
@@ -317,7 +317,7 @@ export default function CartPage() {
                     alt={item.name}
                     width={100}
                     height={100}
-                    className="w-24 h-24 object-cover"
+                    className="object-cover w-24 h-24"
                   />
                   <div>
                     <h2 className="text-xl font-semibold title-color">
@@ -326,7 +326,7 @@ export default function CartPage() {
                     <p className="text-lg text-color">
                       {item.discount ? (
                         <>
-                          <span className="line-through text-gray-600">
+                          <span className="text-gray-600 line-through">
                             ₽ {item.price}
                           </span>{" "}
                           <span className="text-red-600">
@@ -347,18 +347,18 @@ export default function CartPage() {
                           updateCount(item.product_id, item.count - 1)
                         }
                         disabled={item.count <= 1}
-                        className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-all ease-in-out duration-300 font-roboto font-normal min-w-8 flex-shrink-0 flex items-center justify-center"
+                        className="flex items-center justify-center flex-shrink-0 px-2 py-1 font-normal transition-all duration-300 ease-in-out bg-gray-200 rounded hover:bg-gray-300 font-roboto min-w-8"
                       >
                         -
                       </button>
-                      <span className="font-roboto font-normal text-color">
+                      <span className="font-normal font-roboto text-color">
                         {item.count}
                       </span>
                       <button
                         onClick={() =>
                           updateCount(item.product_id, item.count + 1)
                         }
-                        className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-all ease-in-out duration-300 font-roboto font-normal min-w-8 flex-shrink-0 flex items-center justify-center"
+                        className="flex items-center justify-center flex-shrink-0 px-2 py-1 font-normal transition-all duration-300 ease-in-out bg-gray-200 rounded hover:bg-gray-300 font-roboto min-w-8"
                       >
                         +
                       </button>
@@ -367,7 +367,7 @@ export default function CartPage() {
                 </div>
                 <button
                   onClick={() => handleDeleteProduct(item)}
-                  className="px-4 py-2 border delete-button font-roboto font-normal text-sm"
+                  className="px-4 py-2 text-sm font-normal border delete-button font-roboto"
                 >
                   Удалить
                 </button>
@@ -381,7 +381,7 @@ export default function CartPage() {
                 </h2>
                 <button
                   onClick={() => setIsOrderModalOpen(true)}
-                  className="main-button font-roboto font-normal text-xl mt-4 w-full"
+                  className="w-full mt-4 text-xl font-normal main-button font-roboto"
                 >
                   Оформить заказ
                 </button>
@@ -393,9 +393,9 @@ export default function CartPage() {
       <Footer />
 
       {isOrderModalOpen && (
-        <div className="absolute inset-0 flex items-center justify-center p-4 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-2xl font-bold title-color mb-4">
+        <div className="absolute inset-0 z-50 flex items-center justify-center p-4">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <h2 className="mb-4 text-2xl font-bold title-color">
               Оформление заказа
             </h2>
             <div className="space-y-4">
@@ -424,16 +424,16 @@ export default function CartPage() {
                   <option value="cash">Наличные</option>
                 </select>
               </div>
-              <div className="flex justify-end space-x-4 w-full">
+              <div className="flex justify-end w-full space-x-4">
                 <button
                   onClick={() => setIsOrderModalOpen(false)}
-                  className="px-4 py-2 border rounded-md cancel-button font-roboto font-normal"
+                  className="px-4 py-2 font-normal border rounded-md cancel-button font-roboto"
                 >
                   Отмена
                 </button>
                 <button
                   onClick={handleCreateOrder}
-                  className="px-4 py-2 main-button font-roboto font-normal"
+                  className="px-4 py-2 font-normal main-button font-roboto"
                 >
                   Подтвердить заказ
                 </button>
@@ -444,21 +444,21 @@ export default function CartPage() {
       )}
 
       {isDeleteModalOpen && (
-        <div className="absolute inset-0 flex items-center justify-center p-4 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-2xl font-bold title-color mb-4">
+        <div className="absolute inset-0 z-50 flex items-center justify-center p-4">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <h2 className="mb-4 text-2xl font-bold title-color">
               Удалить товар из корзины?
             </h2>
-            <div className="flex justify-end space-x-4 w-full">
+            <div className="flex justify-end w-full space-x-4">
               <button
                 onClick={() => setIsDeleteModalOpen(false)}
-                className="px-4 py-2 border rounded-md cancel-button font-roboto font-normal"
+                className="px-4 py-2 font-normal border rounded-md cancel-button font-roboto"
               >
                 Отмена
               </button>
               <button
                 onClick={confirmDelete}
-                className="px-4 py-2 border rounded-md main-button font-roboto font-normal"
+                className="px-4 py-2 font-normal border rounded-md main-button font-roboto"
               >
                 Удалить
               </button>

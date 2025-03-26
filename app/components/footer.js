@@ -5,22 +5,22 @@ import { FaTelegram, FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer id="footer" className="bg-F0E6DD py-10 border-t border-black/20">
+    <footer id="footer" className="py-10 border-t bg-F0E6DD border-black/20">
       <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-8">
-          <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
+        <div className="flex flex-col items-center justify-between mb-8 md:flex-row md:items-start">
+          <div className="flex flex-col items-center mb-6 md:items-start md:mb-0">
             <Link
               href="/"
-              className="text-3xl font-playfair font-semibold text-title-color"
+              className="text-3xl font-semibold font-playfair text-title-color"
             >
               Velvia
             </Link>
-            <p className="text-sm font-roboto text-color opacity-70 mt-2 text-center md:text-left">
+            <p className="mt-2 text-sm text-center font-roboto text-color opacity-70 md:text-left">
               Мы создаём уют и стиль с помощью эксклюзивных штор.
             </p>
           </div>
 
-          <div className="flex flex-col items-center md:items-start gap-4 text-color font-roboto">
+          <div className="flex flex-col items-center gap-4 md:items-start text-color font-roboto">
             <Link
               href="/"
               className="text-lg hover:text-[#8b7355] transition-all duration-300 ease-in-out"
@@ -41,7 +41,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          <div className="flex flex-col items-center md:items-start gap-4">
+          <div className="flex flex-col items-center gap-4 md:items-start">
             <p className="text-lg font-semibold text-color">
               Свяжитесь с нами
             </p>
@@ -74,9 +74,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="w-full border-t border-black/20 mt-8"></div>
+      <div className="w-full mt-8 border-t border-black/20"></div>
 
-      <div className="mt-4 text-center text-sm text-color opacity-60">
+      <div className="mt-4 text-sm text-center text-color opacity-60">
         <p>2025 © Все права защищены</p>
       </div>
     </footer>

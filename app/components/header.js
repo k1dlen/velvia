@@ -41,7 +41,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="nav sm:hidden md:flex lg:flex flex gap-10 font-roboto font-normal text-2xl text-center w-auto p-4 lg:p-0 text-color">
+        <nav className="flex w-auto gap-10 p-4 text-2xl font-normal text-center nav sm:hidden md:flex lg:flex font-roboto lg:p-0 text-color">
           <Link
             href="/"
             className="hover:text-[#8b7355] transition-all duration-300 ease-in-out"
@@ -68,28 +68,28 @@ export default function Header() {
           </Link>
         </nav>
 
-        <div className="sm:hidden md:flex lg:flex items-center gap-3">
-          <div className="sm:hidden md:flex lg:flex items-center gap-3">
+        <div className="items-center gap-3 sm:hidden md:flex lg:flex">
+          <div className="items-center gap-3 sm:hidden md:flex lg:flex">
             {user ? (
-              <Link href="/profile" className="text-4xl text-color relative">
+              <Link href="/profile" className="relative text-4xl text-color">
                 <FiUser className="icon" />
-                <span className="absolute top-0 -right-1 h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0 w-2 h-2 bg-green-500 rounded-full -right-1 animate-pulse"></span>
               </Link>
             ) : (
-              <Link href="/profile" className="text-4xl relative">
+              <Link href="/profile" className="relative text-4xl">
                 <FiUser className="icon text-color" />
-                <span className="absolute top-0 -right-1 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0 w-2 h-2 bg-red-500 rounded-full -right-1 animate-pulse"></span>
               </Link>
             )}
             {cartId ? (
-              <Link href="/cart" className="text-4xl text-color relative">
+              <Link href="/cart" className="relative text-4xl text-color">
                 <FiShoppingCart className="icon" />
-                <span className="absolute top-0 -right-3 h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0 w-2 h-2 bg-green-500 rounded-full -right-3 animate-pulse"></span>
               </Link>
             ) : (
-              <Link href="/cart" className="text-4xl text-color relative">
+              <Link href="/cart" className="relative text-4xl text-color">
                 <FiShoppingCart className="icon" />
-                <span className="absolute top-0 -right-3 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0 w-2 h-2 bg-red-500 rounded-full -right-3 animate-pulse"></span>
               </Link>
             )}
           </div>
@@ -98,7 +98,7 @@ export default function Header() {
         <button
           type="button"
           onClick={toggleMenu}
-          className="sm:block md:hidden lg:hidden text-4xl "
+          className="text-4xl sm:block md:hidden lg:hidden "
         >
           &#9776;
         </button>
@@ -116,25 +116,25 @@ export default function Header() {
           </nav>
           <div className="flex flex-col gap-4">
             {user ? (
-              <Link href="/profile" className="text-4xl text-color relative">
+              <Link href="/profile" className="relative text-4xl text-color">
                 <FiUser className="icon" />
-                <span className="absolute top-0 -right-1 h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0 w-2 h-2 bg-green-500 rounded-full -right-1 animate-pulse"></span>
               </Link>
             ) : (
-              <Link href="/profile" className="text-4xl relative">
+              <Link href="/profile" className="relative text-4xl">
                 <FiUser className="icon text-color" />
-                <span className="absolute top-0 -right-1 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0 w-2 h-2 bg-red-500 rounded-full -right-1 animate-pulse"></span>
               </Link>
             )}
             {cartId ? (
-              <Link href="/cart" className="text-4xl text-color relative">
+              <Link href="/cart" className="relative text-4xl text-color">
                 <FiShoppingCart className="icon" />
-                <span className="absolute top-0 -right-3 h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0 w-2 h-2 bg-green-500 rounded-full -right-3 animate-pulse"></span>
               </Link>
             ) : (
-              <Link href="/cart" className="text-4xl text-color relative">
+              <Link href="/cart" className="relative text-4xl text-color">
                 <FiShoppingCart className="icon" />
-                <span className="absolute top-0 -right-3 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0 w-2 h-2 bg-red-500 rounded-full -right-3 animate-pulse"></span>
               </Link>
             )}
           </div>

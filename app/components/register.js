@@ -42,7 +42,7 @@ export default function Register({ setUser }) {
 
   return (
     <div className="container flex flex-col items-center justify-center p-5">
-      <h1 className="font-playfair text-3xl font-semibold mb-6 text-center title-color">
+      <h1 className="mb-6 text-3xl font-semibold text-center font-playfair title-color">
         Регистрация
       </h1>
       <form className="space-y-4" onSubmit={handleRegister}>
@@ -90,7 +90,7 @@ export default function Register({ setUser }) {
           className="w-full p-3 border border-gray-300 rounded-md text-color focus:ring-2 focus:outline-none"
           required
         />
-        <button type="submit" className="mt-4 w-full main-button">
+        <button type="submit" className="w-full mt-4 main-button">
           Зарегистрироваться
         </button>
       </form>
