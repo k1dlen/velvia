@@ -14,6 +14,39 @@ export default function Register({ setUser }) {
 
   const router = useRouter();
 
+  const formatPhoneNumber = (value) => {
+    let numbers = value.replace(/\D/g, "");
+
+    if (numbers.startsWith("7") || numbers.startsWith("8")) {
+      numbers = numbers.substring(1);
+    }
+
+    numbers = numbers.substring(0, 10);
+
+    let formatted = "";
+
+    if (numbers.length > 0) {
+      formatted += "+7 ";
+      formatted += " (" + numbers.substring(0, 3);
+    }
+    if (numbers.length >= 4) {
+      formatted += ") " + numbers.substring(3, 6);
+    }
+    if (numbers.length >= 7) {
+      formatted += "-" + numbers.substring(6, 8);
+    }
+    if (numbers.length >= 9) {
+      formatted += "-" + numbers.substring(8, 10);
+    }
+
+    return formatted;
+  };
+
+  const handlePhoneChange = (e) => {
+    const formattedPhone = formatPhoneNumber(e.target.value);
+    setFormData({ ...formData, phone: formattedPhone });
+  };
+
   async function handleRegister(e) {
     e.preventDefault();
 
@@ -78,7 +111,7 @@ export default function Register({ setUser }) {
           type="tel"
           placeholder="Телефон"
           value={formData.phone}
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          onChange={handlePhoneChange}
           className="w-full p-3 border border-gray-300 rounded-md text-color focus:ring-2 focus:outline-none"
           required
         />

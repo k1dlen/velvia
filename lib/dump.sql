@@ -28,7 +28,7 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` VALUES (33,3);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +58,7 @@ CREATE TABLE `cart_items` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +67,7 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
+INSERT INTO `cart_items` VALUES (91,33,2,2),(92,33,11,2);
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +99,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (10,2,'вапппапрапрпар','Карта',2,'2025-03-15 18:12:47'),(11,2,'митмиттмитми','Карта',3,'2025-03-15 18:29:43'),(12,1,'bxgfddghmgdhmfghmfghmfghmj','Карта',5,'2025-03-17 22:45:24'),(13,1,'g nnvbnvbn','cash',2,'2025-03-17 22:46:04'),(14,2,'вапвватрваорваротв','Карта',2,'2025-03-17 22:49:43'),(15,1,'x;lbk;lcxkvbjxcv;lbkxcvb','Карта',3,'2025-03-17 23:17:38'),(16,1,'юьюьюьюьюь','Карта',3,'2025-03-17 23:42:04'),(17,1,'эвжапдлрвапжэдрлвап','Карта',2,'2025-03-17 23:46:27'),(18,2,'fthfhfghgf','Карта',3,'2025-03-18 01:03:34'),(19,2,'jhhgjghjgj','Карта',5,'2025-03-18 01:05:33');
+INSERT INTO `order` VALUES (10,2,'вапппапрапрпар','Карта',5,'2025-03-15 18:12:47'),(11,2,'митмиттмитми','Карта',3,'2025-03-15 18:29:43'),(12,1,'bxgfddghmgdhmfghmfghmfghmj','Карта',5,'2025-03-17 22:45:24'),(13,1,'g nnvbnvbn','cash',2,'2025-03-17 22:46:04'),(14,2,'вапвватрваорваротв','Карта',2,'2025-03-17 22:49:43'),(15,1,'x;lbk;lcxkvbjxcv;lbkxcvb','Карта',3,'2025-03-17 23:17:38'),(16,1,'юьюьюьюьюь','Карта',3,'2025-03-17 23:42:04'),(17,1,'эвжапдлрвапжэдрлвап','Карта',2,'2025-03-17 23:46:27'),(18,2,'fthfhfghgf','Карта',3,'2025-03-18 01:03:34'),(19,2,'jhhgjghjgj','Карта',5,'2025-03-18 01:05:33');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,4 +256,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-19 19:28:25
+-- Dump completed on 2025-03-28 22:15:51

@@ -35,6 +35,7 @@ export default function ProductPage() {
         });
 
         const data = await response.json();
+        if (!data.cartItems) return;
         const item = data.cartItems.find(
           (item) => item.product_id === parseInt(id)
         );

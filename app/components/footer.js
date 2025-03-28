@@ -42,14 +42,12 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center gap-4 md:items-start">
-            <p className="text-lg font-semibold text-color">
-              Свяжитесь с нами
+            <p className="text-lg font-semibold text-color">Свяжитесь с нами</p>
+            <p className="text-[16px] font-roboto text-color opacity-80">
+              <a href="tel:+7(916)-977-89-98">+7(916)-977-89-98</a>
             </p>
             <p className="text-[16px] font-roboto text-color opacity-80">
-              +7 999 123 45 67
-            </p>
-            <p className="text-[16px] font-roboto text-color opacity-80">
-              example@email.com
+              <a href="mailto:Velvia@email.com">Velvia@email.com</a>
             </p>
 
             <div className="flex gap-4">
