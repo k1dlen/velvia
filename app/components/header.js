@@ -68,7 +68,7 @@ export default function Header() {
           </Link>
         </nav>
 
-        <div className="items-center gap-3 sm:hidden md:flex lg:flex">
+        <div className="items-center gap-3 px-3 sm:hidden md:flex lg:flex">
           <div className="items-center gap-3 sm:hidden md:flex lg:flex">
             {user ? (
               <Link href="/profile" className="relative text-4xl text-color">
@@ -98,45 +98,47 @@ export default function Header() {
         <button
           type="button"
           onClick={toggleMenu}
-          className="text-4xl sm:block md:hidden lg:hidden "
+          className="z-50 text-4xl sm:block md:hidden lg:hidden"
         >
           &#9776;
         </button>
 
         <div
-          className={`${
-            isOpen ? "flex" : "hidden"
-          }  flex-col items-center justify-center gap-4 font-roboto font-normal text-2xl text-center w-auto p-4 lg:p-0 md:hidden lg:hidden transition-all duration-300 ease-in-out transform`}
+          className={`z-15 fixed top-0 right-0 w-64 h-full bg-[#f5f5f5] shadow-lg border-l border-[#00000033] flex flex-col items-center pt-16 transition-transform transform ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          } md:hidden`}
         >
-          <nav className="flex flex-col gap-4 text-color">
-            <Link href="/">Главная</Link>
-            <Link href="/catalog">Каталог</Link>
-            <Link href="/about">О нас</Link>
-            <Link href="/contacts">Контакты</Link>
+          <nav className="flex flex-col gap-6 text-lg text-color">
+            <Link href="/" onClick={() => setIsOpen(false)}>
+              Главная
+            </Link>
+            <Link href="/catalog" onClick={() => setIsOpen(false)}>
+              Каталог
+            </Link>
+            <Link href="/about" onClick={() => setIsOpen(false)}>
+              О нас
+            </Link>
+            <Link href="#footer" onClick={() => setIsOpen(false)}>
+              Контакты
+            </Link>
           </nav>
-          <div className="flex flex-col gap-4">
-            {user ? (
-              <Link href="/profile" className="relative text-4xl text-color">
-                <FiUser className="icon" />
-                <span className="absolute top-0 w-2 h-2 bg-green-500 rounded-full -right-1 animate-pulse"></span>
-              </Link>
-            ) : (
-              <Link href="/profile" className="relative text-4xl">
-                <FiUser className="icon text-color" />
-                <span className="absolute top-0 w-2 h-2 bg-red-500 rounded-full -right-1 animate-pulse"></span>
-              </Link>
-            )}
-            {cartId ? (
-              <Link href="/cart" className="relative text-4xl text-color">
-                <FiShoppingCart className="icon" />
-                <span className="absolute top-0 w-2 h-2 bg-green-500 rounded-full -right-3 animate-pulse"></span>
-              </Link>
-            ) : (
-              <Link href="/cart" className="relative text-4xl text-color">
-                <FiShoppingCart className="icon" />
-                <span className="absolute top-0 w-2 h-2 bg-red-500 rounded-full -right-3 animate-pulse"></span>
-              </Link>
-            )}
+          <div className="flex gap-4 mt-6">
+            <Link href="/profile" className="relative text-4xl text-color">
+              <FiUser />
+              <span
+                className={`absolute top-0 w-2 h-2 rounded-full -right-1 animate-pulse ${
+                  user ? "bg-green-500" : "bg-red-500"
+                }`}
+              ></span>
+            </Link>
+            <Link href="/cart" className="relative text-4xl text-color">
+              <FiShoppingCart />
+              <span
+                className={`absolute top-0 w-2 h-2 rounded-full -right-3 animate-pulse ${
+                  cartId ? "bg-green-500" : "bg-red-500"
+                }`}
+              ></span>
+            </Link>
           </div>
         </div>
       </div>

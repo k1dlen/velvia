@@ -58,7 +58,7 @@ export default function Home() {
       </div>
 
       <div className="container latestProducts">
-        <h2 className="mt-10 text-5xl font-semibold text-center font-playfair title-color">
+        <h2 className="mt-10 text-4xl font-semibold text-center md:text-5xl font-playfair title-color">
           Новинки
         </h2>
         <div className="container grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full px-0 mx-0">
@@ -79,42 +79,39 @@ export default function Home() {
       </div>
 
       <div className="mt-10 welcome">
-        <div className="container flex items-center justify-between min-h-150">
-          <div className="flex flex-col items-start justify-center w-1/2">
-            <h2 className="mt-10 text-5xl font-semibold font-playfair title-color">
+        <div className="container flex flex-col-reverse items-center justify-between py-5 lg:flex-row min-h-175">
+          <div className="flex flex-col items-center justify-center w-full text-center lg:items-start lg:w-1/2 lg:text-left">
+            <h2 className="mt-10 text-4xl font-semibold md:text-5xl font-playfair title-color">
               Добро пожаловать в Velvia
             </h2>
-            <p className="mt-4 text-4xl font-normal font-playfair title-color">
-              Место, где рождается уют и стиль.
+            <p className="mt-4 text-xl font-normal md:text-4xl font-playfair title-color">
+              Место,&nbsp;где рождается уют&nbsp;и&nbsp;стиль.
             </p>
-            <p className="mt-4 text-2xl font-normal font-roboto text-color">
+            <p className="mt-4 text-lg font-normal md:text-2xl font-roboto text-color">
               Наша миссия — предоставить вам доступ к самым
-              <br />
-              изысканным и уникальным шторам.
+              изысканным&nbsp;и&nbsp;уникальным шторам.
             </p>
-            <p className="mt-4 text-2xl font-normal font-roboto text-color">
-              Мы хотим, чтобы каждый клиент — будь то ценитель
-              <br />
-              уюта, дизайнер интерьеров или просто любитель
-              <br />
-              красоты — получил персонализированный опыт
-              <br />
-              создания идеального пространства.
+            <p className="mt-4 text-lg font-normal md:text-2xl font-roboto text-color">
+              Мы хотим, чтобы каждый клиент&nbsp;—&nbsp;будь то ценитель
+              уюта,&nbsp;дизайнер интерьеров или просто любитель
+              красоты&nbsp;—&nbsp;получил персонализированный опыт создания
+              идеального пространства.
             </p>
           </div>
-          <div className="flex justify-end w-1/2 mt-10">
+          <div className="flex justify-center w-full mt-6 lg:justify-end lg:w-1/2 lg:mt-10">
             <Image
               src="/images/welcome_photo.png"
               alt="Добро пожаловать в Velvia"
               width={650}
               height={500}
+              className="lg:w-full sm:w-90%"
             />
           </div>
         </div>
       </div>
 
       <div className="container mt-10 CurtainCollection">
-        <h2 className="mt-10 text-5xl font-semibold text-center font-playfair title-color">
+        <h2 className="mt-10 text-4xl font-semibold text-center md:text-5xl font-playfair title-color">
           Исследуйте наши коллекции штор
         </h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 w-full px-0 mx-0">
@@ -133,18 +130,18 @@ export default function Home() {
       </div>
 
       <div className="mt-10 request">
-        <div className="container flex flex-col items-center justify-center min-h-75">
-          <h2 className="text-5xl font-semibold text-center font-playfair title-color">
+        <div className="container flex flex-col items-center justify-center min-h-90">
+          <h2 className="text-4xl font-semibold text-center md:text-5xl font-playfair title-color">
             Не знаете, какие шторы подойдут вашему интерьеру?
           </h2>
-          <p className="text-2xl font-normal text-center font-roboto mt-7 text-color">
+          <p className="text-lg text-center md:text-2xl mdfont-normal font-roboto mt-7 text-color">
             Свяжитесь с нами, и мы поможем подобрать идеальные шторы для вашего
             дома!
           </p>
           <div className="mt-7">
             <a
               href="#footer"
-              className="text-2xl font-normal main-button font-roboto"
+              className="text-lg font-normal md:text-2xl main-button font-roboto"
             >
               Посмотреть контакты
             </a>

@@ -17,8 +17,8 @@ export default function About() {
               О компании Velvia
             </h1>
             <p className="text-2xl font-normal font-roboto text-color">
-              С 2010 года мы создаем уникальные оконные решения, которые
-              преображают пространство и дарят уют тысячам домов.
+              С 2010 года мы создаём уникальные оконные решения, преображающие
+              пространство&nbsp;и&nbsp;наполняющие дома уютом.
             </p>
           </div>
           <div className="flex justify-end md:w-1/2">
